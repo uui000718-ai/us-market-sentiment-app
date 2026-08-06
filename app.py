@@ -748,7 +748,7 @@ def collect(demo: bool = False) -> dict[str, Any]:
         items.append(indicator(
             "aaii", "AAII 投资者情绪", aaii["score"],
             f"看多 {aaii['bullish']:.1f}% / 中性 {aaii['neutral']:.1f}% / 看空 {aaii['bearish']:.1f}%",
-            f"多空差 {aaii['spread']:+.1f} 个百分点；{aaii['source']}；发布日期 {aaii['date']}{stale_buy_note(aaii)}", 20,
+            f"多空差 {aaii['spread']:+.1f} 个百分点；发布日期 {aaii['date']}{stale_buy_note(aaii)}", 20,
         ))
     else:
         items.append(indicator("aaii", "AAII 投资者情绪", None, "不可用", "AAII 数据获取失败", 20))
@@ -759,7 +759,7 @@ def collect(demo: bool = False) -> dict[str, Any]:
         items.append(indicator(
             "ndx_forward_pe", "纳斯达克100预估市盈率", ndx_pe["score"],
             f"{ndx_pe['forward_pe']:.2f}x / {years}年百分位 {ndx_pe['percentile']:.1f}%",
-            f"10年历史中位数 {ndx_pe['ten_year_median']:.2f}x；{ndx_pe['source']}；数据日期 {ndx_pe['date']}{stale_buy_note(ndx_pe)}", 20,
+            f"10年历史中位数 {ndx_pe['ten_year_median']:.2f}x；数据日期 {ndx_pe['date']}{stale_buy_note(ndx_pe)}", 20,
         ))
     else:
         items.append(indicator("ndx_forward_pe", "纳斯达克100预估市盈率", None, "不可用", "Nasdaq估值数据获取失败", 20))
@@ -780,7 +780,7 @@ def collect(demo: bool = False) -> dict[str, Any]:
             f"净仓位 {cftc['net_pct']:+.1f}% / 3年百分位 {cftc['three_year_percentile']:.1f}%",
             (
                 f"多仓 {cftc['long_pct']:.1f}% / 空仓 {cftc['short_pct']:.1f}%；"
-                f"净仓位4周均值 {cftc['four_week_average']:+.1f}%；{cftc['source']}；"
+                f"净仓位4周均值 {cftc['four_week_average']:+.1f}%；"
                 f"数据日期 {cftc['date']}；仅供参考，权重0%，不参与综合评分"
             ),
             0,
@@ -788,7 +788,7 @@ def collect(demo: bool = False) -> dict[str, Any]:
     else:
         items.append(indicator(
             "cftc_positioning", "CFTC机构仓位（参考）", None, "不可用",
-            "CFTC官方周度数据获取失败；仅供参考，不参与综合评分", 0,
+            "CFTC周度数据获取失败；仅供参考，不参与综合评分", 0,
         ))
 
     vix = histories.get("^VIX", {}).get("closes", [])
@@ -804,7 +804,7 @@ def collect(demo: bool = False) -> dict[str, Any]:
             score = 30 - (latest - 30) * 2
         else:
             score = 0
-        items.append(indicator("vix", "VIX 恐慌指数", score, f"{latest:.2f}", f"行情日期 {histories['^VIX']['dates'][-1]}；数值越高代表隐含波动越大", 20))
+        items.append(indicator("vix", "VIX 恐慌指数", score, f"{latest:.2f}", f"行情日期 {histories['^VIX']['dates'][-1]}", 20))
     else:
         items.append(indicator("vix", "VIX 恐慌指数", None, "不可用", "VIX 行情获取失败", 20))
 

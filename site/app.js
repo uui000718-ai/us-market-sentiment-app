@@ -7,7 +7,6 @@ const DCA_DIMENSIONS = [
   ["ma200", "MA200", "8%"], ["vix", "VIX", "8%"], ["yield10y", "美债10Y", "7%"],
   ["dxy", "美元指数", "6%"], ["fearGreed", "恐惧贪婪", "8%"], ["aaii", "AAII", "8%"],
 ];
-let installPrompt = null;
 
 function escapeHtml(value) {
   return String(value ?? "").replace(/[&<>'"]/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" })[char]);
@@ -56,7 +55,7 @@ function render(report, mode = "live") {
     const position = Math.max(0, Math.min(100, 100 - Number(ndx.drawdown_pct || 0)));
     const headline = ndx.is_new_high ? "创52周新高" : `-${Number(ndx.drawdown_pct).toFixed(2)}%`;
     const detail = ndx.is_new_high ? `新高点 ${Number(ndx.latest).toLocaleString()}` : `当前 ${Number(ndx.latest).toLocaleString()} · 高点 ${Number(ndx.high).toLocaleString()}`;
-    document.getElementById("ndxPosition").innerHTML = `<div class="high-position-card"><div class="high-position-value"><span>纳斯达克100</span><strong>${headline}</strong><p>${detail}</p></div><div class="high-position-meter" aria-label="当前点位相当于52周高点的${position.toFixed(2)}%"><div class="high-position-fill" style="width:${position}%"></div><div class="high-position-marker" style="left:${position}%"></div></div><div class="high-position-labels"><span>0</span><span>52周高点 = 100%</span></div></div>`;
+    document.getElementById("ndxPosition").innerHTML = `<div class="high-position-card"><div class="high-position-value"><span>纳斯达克100</span><strong>${headline}</strong><p>${detail}</p></div><div class="high-position-meter" aria-label="当前点位相当于52周高点的${position.toFixed(2)}%"><div class="high-position-fill" style="width:${position}%"></div><div class="high-position-marker" style="left:${position}%"></div></div></div>`;
   } else {
     document.getElementById("ndxPosition").innerHTML = '<p class="empty-state">暂时没有纳斯达克100的52周高点数据。</p>';
   }
@@ -135,11 +134,6 @@ function loadAll() {
   return Promise.allSettled([loadData(), loadDcaData()]);
 }
 
-window.addEventListener("beforeinstallprompt", (event) => { event.preventDefault(); installPrompt = event; });
 document.getElementById("refreshButton").addEventListener("click", loadAll);
-document.getElementById("installButton").addEventListener("click", async () => {
-  if (installPrompt) { await installPrompt.prompt(); installPrompt = null; }
-  else alert("iPhone：点击 Safari 分享按钮，再选择“添加到主屏幕”。\nAndroid：打开浏览器菜单，选择“安装应用”。");
-});
 if ("serviceWorker" in navigator) window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js").catch(() => {}));
 loadAll();
