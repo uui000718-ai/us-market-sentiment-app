@@ -35,6 +35,8 @@ jobs:
           DATA_DIR: site/data
           NDX_PE_PERCENTILE_YEARS: "10"
         run: python app.py
+      - name: 获取第三方纳指12维度评分
+        run: python scripts/fetch_btcdca.py
       - name: 配置 GitHub Pages
         uses: actions/configure-pages@v5
       - name: 上传网页

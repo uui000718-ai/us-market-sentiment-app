@@ -34,6 +34,31 @@
       <div class="hero-footer"><span id="sentimentLabel">市场情绪 --</span><span id="generatedAt">等待更新</span></div>
     </section>
 
+    <section class="section-block dca-module" id="nasdaq-dca">
+      <div class="dca-terminal-head">
+        <div><p class="section-kicker">NASDAQ-100 DCA COMPUTER</p><h2>纳指定投评分</h2></div>
+        <span class="source-chip">第三方参考</span>
+      </div>
+      <div class="dca-score-panel">
+        <div class="dca-score-main">
+          <span>DCA SCORE</span>
+          <strong id="dcaScore">--</strong>
+          <small>/ 100</small>
+          <p id="dcaEvent">等待数据</p>
+        </div>
+        <div class="dca-multiplier">
+          <span>INVEST MULTIPLIER</span>
+          <strong id="dcaMultiplier">--x</strong>
+          <small>建议定投倍数</small>
+        </div>
+      </div>
+      <p class="dca-advice" id="dcaAdvice">正在读取第三方评分...</p>
+      <div class="dca-market-strip" id="dcaMarketStrip"></div>
+      <div class="dca-dimension-head"><div><p class="section-kicker">12 DIMENSION ANALYSIS</p><h3>12维度评分详情</h3></div><span id="dcaUpdated">等待更新</span></div>
+      <div class="dca-dimension-grid" id="dcaDimensions"><p class="empty-state">正在载入12维度数据...</p></div>
+      <p class="dca-source-note">数据与评分直接读取自 btcdca.me，不参与本APP原有五项指标的加权决策。</p>
+    </section>
+
     <section class="section-block" id="indicators">
       <div class="section-heading"><div><p class="section-kicker">SIX SIGNALS</p><h2>六项核心指标</h2></div><span class="count-chip" id="indicatorCount">0/6 已同步</span></div>
       <div class="indicator-list" id="indicatorList"></div>
@@ -52,7 +77,7 @@
 
     <section class="install-card" id="settings"><div><p class="section-kicker">INSTALLABLE APP</p><h2>安装到手机主屏幕</h2><p>每天自动读取 GitHub Actions 生成的最新数据。</p></div><button id="installButton">安装 APP</button></section>
     <footer><p>每日数据由 GitHub Actions 更新 · 无需登录</p><p>规则信号仅供信息参考，不构成投资建议。</p></footer>
-    <nav class="bottom-nav" aria-label="应用导航"><a href="#top" class="active"><span>●</span>今日</a><a href="#indicators"><span>▦</span>指标</a><a href="#trend"><span>▥</span>位置</a><a href="#settings"><span>＋</span>安装</a></nav>
+    <nav class="bottom-nav" aria-label="应用导航"><a href="#top" class="active"><span>●</span>今日</a><a href="#indicators"><span>▦</span>指标</a><a href="#nasdaq-dca"><span>◎</span>定投</a><a href="#trend"><span>▥</span>位置</a></nav>
   </main>
   <script src="./app.js" defer></script>
 </body>

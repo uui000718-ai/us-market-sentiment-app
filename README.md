@@ -4,6 +4,8 @@
 
 项目每天通过 GitHub Actions 抓取 AAII、纳斯达克100预估市盈率、NAAIM、VIX、QQQ RSI 和 CFTC 机构仓位，生成 `site/data/latest.json` 并发布到 GitHub Pages。
 
+页面另设“纳指定投评分”模块，直接读取 btcdca.me 的顶部评分和12维度接口并保存为 `site/data/nasdaq-dca.json`。该模块独立展示，不参与原有五项决策权重。
+
 ## 自动更新时间
 
 - 工作日北京时间约 06:47

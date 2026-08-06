@@ -1,5 +1,12 @@
 const DATA_URL = "./data/latest.json";
+const DCA_URL = "./data/nasdaq-dca.json";
 const CODES = { aaii: "AA", ndx_forward_pe: "PE", naaim: "NA", cftc_positioning: "CF", vix: "VX", qqq_rsi: "RS" };
+const DCA_DIMENSIONS = [
+  ["pe", "PE估值", "12%"], ["pb", "PB估值", "8%"], ["macd", "MACD", "10%"],
+  ["rsi", "RSI", "8%"], ["bollinger", "布林带", "7%"], ["ma50", "MA50", "10%"],
+  ["ma200", "MA200", "8%"], ["vix", "VIX", "8%"], ["yield10y", "美债10Y", "7%"],
+  ["dxy", "美元指数", "6%"], ["fearGreed", "恐惧贪婪", "8%"], ["aaii", "AAII", "8%"],
+];
 let installPrompt = null;
 
 function escapeHtml(value) {
@@ -80,11 +87,59 @@ async function loadData() {
   } finally { button.classList.remove("spinning"); }
 }
 
+function compactNumber(value) {
+  const number = Number(value);
+  if (!Number.isFinite(number)) return "--";
+  return Math.abs(number) >= 1000 ? number.toLocaleString("zh-CN", { maximumFractionDigits: 0 }) : number.toFixed(2).replace(/\.00$/, "");
+}
+
+function renderDca(payload) {
+  const top = payload.top || {};
+  const twelve = payload.twelve || {};
+  document.getElementById("dcaScore").textContent = top.totalScore ?? "--";
+  document.getElementById("dcaMultiplier").textContent = `${Number(top.multiplier ?? twelve.multiplier ?? 0).toFixed(2)}x`;
+  document.getElementById("dcaEvent").textContent = top.eventType || top.status || "等待数据";
+  document.getElementById("dcaAdvice").textContent = top.advice || "暂无定投建议";
+  const valuation = top.indicators?.valuation || {};
+  const priceChange = Number(top.priceChange);
+  document.getElementById("dcaMarketStrip").innerHTML = [
+    ["NASDAQ-100", `$${compactNumber(top.qqqPrice)}`],
+    ["PE", compactNumber(valuation.pe)],
+    ["PB", compactNumber(valuation.pb)],
+  ].map(([label, value], index) => `<div class="dca-market-item"><span>${label}</span><strong>${value}${index === 0 && Number.isFinite(priceChange) ? ` <small class="${priceChange >= 0 ? "positive" : "negative"}">${priceChange >= 0 ? "+" : ""}${priceChange.toFixed(2)}%</small>` : ""}</strong></div>`).join("");
+  document.getElementById("dcaUpdated").textContent = `北京 ${dateTime(payload.fetched_at)}`;
+  const dimensions = twelve.dimensions || {};
+  document.getElementById("dcaDimensions").innerHTML = DCA_DIMENSIONS.map(([key, label, weight]) => {
+    const item = dimensions[key] || {};
+    const score = Number(item.score);
+    const safeScore = Number.isFinite(score) ? Math.max(0, Math.min(100, score)) : 0;
+    return `<article class="dca-dimension-card"><div class="dca-dimension-title"><span>${label}</span><small>${weight}</small></div><div class="dca-dimension-score"><strong>${Number.isFinite(score) ? score.toFixed(0) : "--"}</strong><span>数值 ${compactNumber(item.value)}</span></div><div class="dca-dimension-bar"><i style="width:${safeScore}%"></i></div></article>`;
+  }).join("");
+}
+
+async function loadDcaData() {
+  try {
+    const response = await fetch(`${DCA_URL}?t=${Date.now()}`, { cache: "no-store" });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const payload = await response.json();
+    localStorage.setItem("nasdaq-dca-report", JSON.stringify(payload));
+    renderDca(payload);
+  } catch {
+    const cached = localStorage.getItem("nasdaq-dca-report");
+    if (cached) renderDca(JSON.parse(cached));
+    else document.getElementById("dcaDimensions").innerHTML = '<p class="empty-state">第三方纳指评分暂时无法读取。</p>';
+  }
+}
+
+function loadAll() {
+  return Promise.allSettled([loadData(), loadDcaData()]);
+}
+
 window.addEventListener("beforeinstallprompt", (event) => { event.preventDefault(); installPrompt = event; });
-document.getElementById("refreshButton").addEventListener("click", loadData);
+document.getElementById("refreshButton").addEventListener("click", loadAll);
 document.getElementById("installButton").addEventListener("click", async () => {
   if (installPrompt) { await installPrompt.prompt(); installPrompt = null; }
   else alert("iPhone：点击 Safari 分享按钮，再选择“添加到主屏幕”。\nAndroid：打开浏览器菜单，选择“安装应用”。");
 });
 if ("serviceWorker" in navigator) window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js").catch(() => {}));
-loadData();
+loadAll();
