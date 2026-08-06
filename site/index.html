@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#081c18">
+  <meta name="description" content="AAII、估值、NAAIM、VIX、QQQ RSI 与 CFTC 美股情绪决策面板">
+  <meta property="og:title" content="Market Pulse｜美股情绪决策">
+  <meta property="og:description" content="六项市场指标，一张每日决策面板。">
+  <meta property="og:image" content="https://uui000718-ai.github.io/us-market-sentiment-app/og.png">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icons/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <title>Market Pulse｜美股情绪决策</title>
+</head>
+<body id="top">
+  <main class="app-shell">
+    <header class="topbar">
+      <div class="brand-lockup"><div class="brand-mark">MP</div><div><p class="eyebrow">MARKET PULSE</p><h1>美股情绪决策</h1></div></div>
+      <button class="refresh-button" id="refreshButton" aria-label="刷新数据">↻</button>
+    </header>
+
+    <div class="mode-banner cached is-hidden" id="modeBanner"><span id="modeLabel">离线缓存</span><p id="modeText"></p></div>
+    <div class="error-panel is-hidden" id="errorPanel"></div>
+
+    <section class="hero-card" aria-label="今日综合决策">
+      <div class="hero-copy">
+        <p class="section-kicker" id="marketDate">等待数据</p>
+        <h2 id="recommendation">同步中</h2>
+        <p class="hero-description">五项指标加权决策</p>
+        <div class="decision-row"><span class="neutral" id="decisionScore">--</span><small>决策分</small></div>
+      </div>
+      <div class="score-gauge" id="scoreGauge"><div class="gauge-inner"><strong id="score">--</strong><span>/ 100</span></div></div>
+      <div class="hero-footer"><span id="sentimentLabel">市场情绪 --</span><span id="generatedAt">等待更新</span></div>
+    </section>
+
+    <section class="section-block" id="indicators">
+      <div class="section-heading"><div><p class="section-kicker">SIX SIGNALS</p><h2>六项核心指标</h2></div><span class="count-chip" id="indicatorCount">0/6 已同步</span></div>
+      <div class="indicator-list" id="indicatorList"></div>
+    </section>
+
+    <section class="section-block insight-card" id="decision">
+      <div class="section-heading"><div><p class="section-kicker">WHY THIS CALL</p><h2>本次判断依据</h2></div></div>
+      <div class="trigger-list" id="triggerList"></div>
+      <p class="weights-note">AAII 20% · 预估市盈率 10% · NAAIM 20% · VIX 25% · QQQ RSI 25%</p>
+    </section>
+
+    <section class="section-block trend-card" id="trend">
+      <div class="section-heading compact"><div><p class="section-kicker">52-WEEK POSITION</p><h2>距离52周高点</h2></div><strong id="ndxDate">等待更新</strong></div>
+      <div id="ndxPosition"></div>
+    </section>
+
+    <section class="install-card" id="settings"><div><p class="section-kicker">INSTALLABLE APP</p><h2>安装到手机主屏幕</h2><p>每天自动读取 GitHub Actions 生成的最新数据。</p></div><button id="installButton">安装 APP</button></section>
+    <footer><p>每日数据由 GitHub Actions 更新 · 无需登录</p><p>规则信号仅供信息参考，不构成投资建议。</p></footer>
+    <nav class="bottom-nav" aria-label="应用导航"><a href="#top" class="active"><span>●</span>今日</a><a href="#indicators"><span>▦</span>指标</a><a href="#trend"><span>▥</span>位置</a><a href="#settings"><span>＋</span>安装</a></nav>
+  </main>
+  <script src="./app.js" defer></script>
+</body>
+</html>
