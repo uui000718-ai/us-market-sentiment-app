@@ -1,6 +1,6 @@
 {
-  "name": "Market Pulse 主动加仓指标",
-  "short_name": "主动加仓",
+  "name": "Market Pulse 纳指主动加仓指标",
+  "short_name": "Market Pulse",
   "description": "每日美股市场情绪温度、买入决策和数据更新提醒。",
   "start_url": "./",
   "scope": "./",
