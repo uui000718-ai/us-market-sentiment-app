@@ -1,8 +1,8 @@
 ## {title}
 
 > {session}
-> 综合风险偏好：**{label}**（{score}，越高越偏积极）
-> 综合决策：**{decision_recommendation}**（加权分 {decision_score}）
+> 市场情绪温度：**{label}**（{score}，越高越偏积极）
+> 买入决策：**{decision_recommendation}**（买入决策分 {decision_score}）
 > 决策权重：{decision_weights}
 > 数据完整度：{coverage}
 

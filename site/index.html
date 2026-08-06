@@ -4,34 +4,34 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#081c18">
-  <meta name="description" content="AAII、估值、NAAIM、VIX、QQQ RSI 与 CFTC 美股情绪决策面板">
-  <meta property="og:title" content="Market Pulse｜美股情绪决策">
+  <meta name="description" content="AAII、估值、NAAIM、VIX 与 QQQ RSI 主动加仓指标">
+  <meta property="og:title" content="Market Pulse｜主动加仓指标">
   <meta property="og:description" content="六项市场指标，一张每日决策面板。">
   <meta property="og:image" content="https://uui000718-ai.github.io/us-market-sentiment-app/og.png">
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" href="./icons/icon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="./styles.css">
-  <title>Market Pulse｜美股情绪决策</title>
+  <title>Market Pulse｜主动加仓指标</title>
 </head>
 <body id="top">
   <main class="app-shell">
     <header class="topbar">
-      <div class="brand-lockup"><div class="brand-mark">MP</div><div><p class="eyebrow">MARKET PULSE</p><h1>美股情绪决策</h1></div></div>
+      <div class="brand-lockup"><div class="brand-mark">MP</div><div><p class="eyebrow">MARKET PULSE</p><h1>主动加仓指标</h1></div></div>
       <button class="refresh-button" id="refreshButton" aria-label="刷新数据">↻</button>
     </header>
 
     <div class="mode-banner cached is-hidden" id="modeBanner"><span id="modeLabel">离线缓存</span><p id="modeText"></p></div>
     <div class="error-panel is-hidden" id="errorPanel"></div>
 
-    <section class="hero-card" aria-label="今日综合决策">
+    <section class="hero-card" aria-label="今日主动加仓指标">
       <div class="hero-copy">
         <p class="section-kicker" id="marketDate">等待数据</p>
         <h2 id="recommendation">同步中</h2>
         <p class="hero-description">五项指标加权决策</p>
-        <div class="decision-row"><span class="neutral" id="decisionScore">--</span><small>决策分</small></div>
+        <div class="decision-row"><span class="neutral" id="decisionScore">--</span><small>买入决策分</small></div>
       </div>
       <div class="score-gauge" id="scoreGauge"><div class="gauge-inner"><strong id="score">--</strong><span>/ 100</span></div></div>
-      <div class="hero-footer"><span id="sentimentLabel">市场情绪 --</span><span id="generatedAt">等待更新</span></div>
+      <div class="hero-footer"><span id="sentimentLabel">市场情绪温度 --</span><span id="generatedAt">等待更新</span></div>
     </section>
 
     <section class="section-block dca-module" id="nasdaq-dca">
@@ -56,7 +56,7 @@
       <div class="dca-market-strip" id="dcaMarketStrip"></div>
       <div class="dca-dimension-head"><div><p class="section-kicker">12 DIMENSION ANALYSIS</p><h3>12维度评分详情</h3></div><span id="dcaUpdated">等待更新</span></div>
       <div class="dca-dimension-grid" id="dcaDimensions"><p class="empty-state">正在载入12维度数据...</p></div>
-      <p class="dca-source-note">数据与评分直接读取自 btcdca.me，不参与本APP原有五项指标的加权决策。</p>
+      <p class="dca-source-note">数据源自 btcdca.me。</p>
     </section>
 
     <section class="section-block" id="indicators">

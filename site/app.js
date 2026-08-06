@@ -33,7 +33,7 @@ function render(report, mode = "live") {
   decisionNode.textContent = `${decisionScore > 0 ? "+" : ""}${decisionScore.toFixed(1)}`;
   decisionNode.className = decisionScore >= 20 ? "positive" : decisionScore <= -20 ? "negative" : "neutral";
   document.getElementById("marketDate").textContent = `美东 ${report.market_date || "—"} 收盘后`;
-  document.getElementById("sentimentLabel").textContent = `市场情绪 ${report.label || "--"}`;
+  document.getElementById("sentimentLabel").textContent = `市场情绪温度 ${report.label || "--"}`;
   document.getElementById("generatedAt").textContent = `北京 ${dateTime(report.generated_at)}`;
 
   const indicators = Array.isArray(report.indicators) ? report.indicators : [];

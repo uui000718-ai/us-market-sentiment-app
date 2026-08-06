@@ -963,8 +963,8 @@ def render_report(report: dict[str, Any], report_type: str | None = None) -> str
         lines = [
             f"## {context['title']}",
             f"> {context['session']}",
-            f"> 综合风险偏好：**{context['label']}**（{context['score']}，越高越偏积极）",
-            f"> 综合决策：**{context['decision_recommendation']}**（加权分 {context['decision_score']}）",
+            f"> 市场情绪温度：**{context['label']}**（{context['score']}，越高越偏积极）",
+            f"> 买入决策：**{context['decision_recommendation']}**（买入决策分 {context['decision_score']}）",
             f"> 数据完整度：{context['coverage']}",
         ]
         if context["reminders"]:
@@ -983,8 +983,8 @@ def render_report(report: dict[str, Any], report_type: str | None = None) -> str
         lines = [
             f"## {context['title']}",
             f"> {context['session']}",
-            f"> 综合风险偏好：**{context['label']}**（{context['score']}，越高越偏积极）",
-            f"> 综合决策：**{context['decision_recommendation']}**（加权分 {context['decision_score']}）",
+            f"> 市场情绪温度：**{context['label']}**（{context['score']}，越高越偏积极）",
+            f"> 买入决策：**{context['decision_recommendation']}**（买入决策分 {context['decision_score']}）",
             f"> 决策权重：{context['decision_weights']}",
             f"> 数据完整度：{context['coverage']}",
             context["reminders"],
@@ -1006,8 +1006,8 @@ def render_report(report: dict[str, Any], report_type: str | None = None) -> str
     lines = [
         f"## {context['title']}",
         f"> {context['session']}",
-        f"> 综合风险偏好：**{context['label']}**（{context['score']}，越高越偏积极）",
-        f"> 综合决策：**{context['decision_recommendation']}**（加权分 {context['decision_score']}）",
+        f"> 市场情绪温度：**{context['label']}**（{context['score']}，越高越偏积极）",
+        f"> 买入决策：**{context['decision_recommendation']}**（买入决策分 {context['decision_score']}）",
         f"> 决策权重：{context['decision_weights']}",
         f"> 数据完整度：{context['coverage']}",
         context["reminders"],

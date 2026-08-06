@@ -59,14 +59,14 @@ class SentimentTests(unittest.TestCase):
         self.assertIn("RSI1", standard)
         self.assertIn("RSI6", standard)
         self.assertIn("RSI14", standard)
-        self.assertIn("综合决策", standard)
+        self.assertIn("买入决策", standard)
         self.assertIn("触发理由", standard)
         self.assertIn("美东时间", standard)
         self.assertIn("纳斯达克100 52周位置", standard)
         self.assertTrue("距52周收盘高点回撤" in standard or "创52周收盘新高" in standard)
-        self.assertEqual(standard.count("综合风险偏好"), 1)
+        self.assertEqual(standard.count("市场情绪温度"), 1)
         self.assertIn("当前值", app.render_report(report, "full"))
-        self.assertIn("综合风险偏好", app.render_report(report, "custom"))
+        self.assertIn("市场情绪温度", app.render_report(report, "custom"))
 
     def test_wilder_rsi_for_rising_series(self):
         self.assertEqual(app.wilder_rsi([float(value) for value in range(1, 30)]), 100.0)
