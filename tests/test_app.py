@@ -11,6 +11,19 @@ import app
 
 
 class SentimentTests(unittest.TestCase):
+    def test_aaii_prefers_current_official_history_table(self):
+        page = b"""
+        <table><tr><th>Reported Date</th><th>Bullish</th><th>Neutral</th><th>Bearish</th></tr>
+        <tr><td>Aug 5</td><td>37.0%</td><td>25.0%</td><td>38.0%</td></tr></table>
+        """
+        with patch("app.http_bytes", return_value=page) as mocked:
+            result = app.fetch_aaii()
+        self.assertEqual(mocked.call_count, 1)
+        self.assertEqual(result["bullish"], 37.0)
+        self.assertEqual(result["neutral"], 25.0)
+        self.assertEqual(result["bearish"], 38.0)
+        self.assertEqual(result["source"], "AAII官方历史结果页")
+
     def test_demo_report_is_complete(self):
         report = app.collect(demo=True)
         self.assertEqual(report["available_indicators"], 6)

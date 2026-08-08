@@ -146,39 +146,7 @@ class _TableParser(HTMLParser):
             self._row = None
 
 
-def fetch_aaii() -> dict[str, Any]:
-    try:
-        feed = ElementTree.fromstring(http_bytes("https://insights.aaii.com/feed"))
-        content_tag = "{http://purl.org/rss/1.0/modules/content/}encoded"
-        for item in feed.findall(".//item"):
-            title = item.findtext("title") or ""
-            if "Sentiment Survey" not in title:
-                continue
-            content = item.findtext(content_tag) or item.findtext("description") or ""
-            plain = html.unescape(re.sub(r"<[^>]+>", " ", content)).replace("\xa0", " ")
-            results = re.search(
-                r"This week.s Sentiment Survey results:.*?Bullish:\s*([0-9.]+)%.*?"
-                r"Neutral:\s*([0-9.]+)%.*?Bearish:\s*([0-9.]+)%",
-                plain,
-                re.I | re.S,
-            )
-            if not results:
-                continue
-            bullish, neutral, bearish = map(float, results.groups())
-            published = email.utils.parsedate_to_datetime(item.findtext("pubDate") or "")
-            directional = bullish / (bullish + bearish) * 100 if bullish + bearish else 50.0
-            return {
-                "date": published.date().isoformat(),
-                "bullish": bullish,
-                "neutral": neutral,
-                "bearish": bearish,
-                "spread": bullish - bearish,
-                "score": directional,
-                "source": "AAII Insights官方周报",
-            }
-    except Exception:
-        pass
-
+def _fetch_aaii_history() -> dict[str, Any]:
     url = "https://www.aaii.com/sentimentsurvey/sent_results"
     body = http_bytes(url, referer="https://www.aaii.com/sentimentsurvey").decode("utf-8", "ignore")
     parser = _TableParser()
@@ -202,6 +170,52 @@ def fetch_aaii() -> dict[str, Any]:
             "source": "AAII官方历史结果页",
         }
     raise ValueError("AAII 页面中未找到最新调查数据")
+
+
+def _fetch_aaii_feed() -> dict[str, Any]:
+    feed = ElementTree.fromstring(http_bytes("https://insights.aaii.com/feed"))
+    content_tag = "{http://purl.org/rss/1.0/modules/content/}encoded"
+    candidates: list[tuple[datetime, dict[str, Any]]] = []
+    for item in feed.findall(".//item"):
+        title = item.findtext("title") or ""
+        if "Sentiment Survey" not in title:
+            continue
+        content = item.findtext(content_tag) or item.findtext("description") or ""
+        plain = html.unescape(re.sub(r"<[^>]+>", " ", content)).replace("\xa0", " ")
+        results = re.search(
+            r"This week.s Sentiment Survey results:.*?Bullish:\s*([0-9.]+)%.*?"
+            r"Neutral:\s*([0-9.]+)%.*?Bearish:\s*([0-9.]+)%",
+            plain,
+            re.I | re.S,
+        )
+        if not results:
+            continue
+        bullish, neutral, bearish = map(float, results.groups())
+        published = email.utils.parsedate_to_datetime(item.findtext("pubDate") or "")
+        directional = bullish / (bullish + bearish) * 100 if bullish + bearish else 50.0
+        candidates.append((published, {
+            "date": published.date().isoformat(),
+            "bullish": bullish,
+            "neutral": neutral,
+            "bearish": bearish,
+            "spread": bullish - bearish,
+            "score": directional,
+            "source": "AAII Insights官方周报",
+        }))
+    if not candidates:
+        raise ValueError("AAII Insights 中未找到可解析的调查数据")
+    return max(candidates, key=lambda item: item[0])[1]
+
+
+def fetch_aaii() -> dict[str, Any]:
+    """优先读取更新更及时的官方历史表，RSS仅在历史表不可用时备用。"""
+    errors: list[str] = []
+    for label, fetcher in (("官方历史结果页", _fetch_aaii_history), ("Insights周报", _fetch_aaii_feed)):
+        try:
+            return fetcher()
+        except Exception as exc:
+            errors.append(f"{label}失败（{exc}）")
+    raise ValueError("；".join(errors))
 
 
 def _xlsx_rows(payload: bytes) -> list[list[str]]:
