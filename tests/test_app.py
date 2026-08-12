@@ -109,7 +109,7 @@ class SentimentTests(unittest.TestCase):
         source_data = {
             "aaii": {"date": "2026-08-05", "bullish": 49.0, "bearish": 30.0},
             "ndx_pe": {"date": "2026-08-05", "forward_pe": 22.5},
-            "naaim": {"exposure": 69.0, "four_week_average": 96.0},
+            "naaim": {"date": "2026-08-05", "exposure": 69.0, "four_week_average": 96.0},
         }
         histories = {"^VIX": {"closes": [36.0]}}
         decision = app.build_decision(source_data, histories, {1: 0.0, 6: 18.0, 14: 19.5}, as_of=date(2026, 8, 5))
@@ -179,6 +179,20 @@ class SentimentTests(unittest.TestCase):
         )
         self.assertEqual(decision["buy_triggers"], 2)
         self.assertEqual(decision["suppressed_signals"], [])
+
+    def test_stale_naaim_is_display_only_and_excluded_from_decision(self):
+        decision = app.build_decision(
+            {"naaim": {"date": "2026-07-29", "exposure": 69.0, "four_week_average": 96.0}},
+            {},
+            {},
+            as_of=date(2026, 8, 12),
+        )
+        self.assertEqual(decision["available_indicators"], 0)
+        self.assertEqual(decision["buy_triggers"], 0)
+        self.assertEqual(decision["sell_triggers"], 0)
+        self.assertEqual(decision["score"], 0.0)
+        self.assertIn("NAAIM数据已14天", decision["suppressed_signals"][0])
+        self.assertIn("已停止参与综合判断", decision["suppressed_signals"][0])
 
     def test_macromicro_series_uses_latest_row(self):
         result = app.parse_macromicro_series({

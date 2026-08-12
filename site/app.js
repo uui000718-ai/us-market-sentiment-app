@@ -45,6 +45,10 @@ function render(report, mode = "live") {
 
   const triggers = report.decision?.triggers || [];
   const stale = report.decision?.suppressed_signals || [];
+  const naaimExcluded = stale.some((item) => String(item).startsWith("NAAIM数据"));
+  document.getElementById("decisionWeights").textContent = naaimExcluded
+    ? "AAII 20% · 预估市盈率 10% · NAAIM 数据过期（本期不计） · VIX 25% · QQQ RSI 25%"
+    : "AAII 20% · 预估市盈率 10% · NAAIM 20% · VIX 25% · QQQ RSI 25%";
   document.getElementById("triggerList").innerHTML = triggers.length || stale.length
     ? triggers.map((item) => `<div class="trigger-item ${item.direction}"><span>${item.direction === "buy" ? "买" : "卖"}</span><p>${escapeHtml(item.reason)}</p></div>`).join("") + stale.map((item) => `<div class="trigger-item stale"><span>旧</span><p>${escapeHtml(item)}</p></div>`).join("")
     : '<p class="empty-state">本次没有指标达到预设阈值。</p>';

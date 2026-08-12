@@ -658,17 +658,22 @@ def build_decision(
 
     naaim = source_data.get("naaim")
     if naaim:
-        available.add("naaim")
+        naaim_fresh, naaim_age = buy_signal_fresh(naaim, as_of=as_of)
         exposure = float(naaim["exposure"])
         four_week_average = float(naaim["four_week_average"])
-        if exposure < 70:
-            trigger("naaim", "buy", 2.0, f"NAAIM {exposure:.2f} < 70（强买入）")
-        elif exposure < 75:
-            trigger("naaim", "buy", 1.5, f"NAAIM {exposure:.2f} < 75")
-        elif exposure < 80:
-            trigger("naaim", "buy", 1.0, f"NAAIM {exposure:.2f} < 80")
-        if four_week_average > 95:
-            trigger("naaim", "sell", 1.5, f"NAAIM 4周均值 {four_week_average:.2f} > 95")
+        if naaim_fresh:
+            available.add("naaim")
+            if exposure < 70:
+                trigger("naaim", "buy", 2.0, f"NAAIM {exposure:.2f} < 70（强买入）")
+            elif exposure < 75:
+                trigger("naaim", "buy", 1.5, f"NAAIM {exposure:.2f} < 75")
+            elif exposure < 80:
+                trigger("naaim", "buy", 1.0, f"NAAIM {exposure:.2f} < 80")
+            if four_week_average > 95:
+                trigger("naaim", "sell", 1.5, f"NAAIM 4周均值 {four_week_average:.2f} > 95")
+        else:
+            age_text = "日期无效" if naaim_age is None else f"已{naaim_age}天"
+            suppressed_signals.append(f"NAAIM数据{age_text}，超过7天有效期，已停止参与综合判断")
 
     vix = histories.get("^VIX", {}).get("closes", [])
     if vix:
@@ -780,9 +785,12 @@ def collect(demo: bool = False) -> dict[str, Any]:
 
     naaim = source_data.get("naaim")
     if naaim:
+        naaim_fresh, _ = buy_signal_fresh(naaim)
         items.append(indicator(
             "naaim", "NAAIM 主动经理暴露指数", naaim["score"], f"{naaim['exposure']:.2f}",
-            f"4周均值 {naaim['four_week_average']:.2f}；{naaim.get('source', 'NAAIM')}；数据日期 {naaim['date']}", 20,
+            f"4周均值 {naaim['four_week_average']:.2f}；{naaim.get('source', 'NAAIM')}；数据日期 {naaim['date']}"
+            f"{stale_buy_note(naaim).replace('不参与买入提示', '不参与综合判断')}",
+            20 if naaim_fresh else 0,
         ))
     else:
         items.append(indicator("naaim", "NAAIM 主动经理暴露指数", None, "不可用", "最新数据需NAAIM订阅、授权API或GitHub手动记录", 20))
@@ -952,7 +960,11 @@ def _template_context(report: dict[str, Any]) -> dict[str, str]:
         "decision_recommendation": decision.get("recommendation", "数据不足"),
         "decision_score": decision_score_text,
         "decision_coverage": f"{decision.get('available_indicators', 0)}/{decision.get('total_indicators', 5)}",
-        "decision_weights": "AAII 20%｜预估市盈率 10%｜NAAIM 20%｜VIX 25%｜QQQ RSI 25%",
+        "decision_weights": (
+            "AAII 20%｜预估市盈率 10%｜NAAIM 数据过期（本期不计）｜VIX 25%｜QQQ RSI 25%"
+            if any(reason.startswith("NAAIM数据") for reason in decision.get("suppressed_signals", []))
+            else "AAII 20%｜预估市盈率 10%｜NAAIM 20%｜VIX 25%｜QQQ RSI 25%"
+        ),
         "trigger_reasons": "\n".join(trigger_lines),
         "reminders": "\n".join(f"> {item}" for item in report.get("reminders", [])),
         "errors": errors,
