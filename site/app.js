@@ -199,7 +199,11 @@ function preparePremium(payload) {
   const select = document.getElementById("premiumFundSelect");
   select.innerHTML = funds.map((fund) => `<option value="${escapeHtml(fund.code)}">${escapeHtml(fund.code)} · ${escapeHtml(fund.name)}</option>`).join("");
   document.getElementById("premiumUpdated").textContent = `数据更新：北京 ${dateTime(payload.fetched_at)} · ${payload.window?.calendar_days || 180}天窗口`;
-  if (funds.length) renderPremiumFund(funds[0].code);
+  const defaultFund = funds.find((fund) => fund.code === "159501") || funds[0];
+  if (defaultFund) {
+    select.value = defaultFund.code;
+    renderPremiumFund(defaultFund.code);
+  }
 }
 
 async function loadPremiumData() {
@@ -227,6 +231,6 @@ function loadAll() {
 }
 
 document.getElementById("refreshButton").addEventListener("click", loadAll);
-document.getElementById("premiumQueryButton").addEventListener("click", () => renderPremiumFund(document.getElementById("premiumFundSelect").value));
+document.getElementById("premiumFundSelect").addEventListener("change", (event) => renderPremiumFund(event.target.value));
 if ("serviceWorker" in navigator) window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js").catch(() => {}));
 loadAll();

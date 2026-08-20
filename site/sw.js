@@ -1,4 +1,4 @@
-const CACHE = "market-pulse-pages-v4";
+const CACHE = "market-pulse-pages-v5";
 const APP_SHELL = ["./", "./styles.css", "./app.js", "./manifest.webmanifest", "./icons/icon.svg"];
 
 self.addEventListener("install", (event) => {
