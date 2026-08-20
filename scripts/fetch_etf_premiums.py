@@ -13,8 +13,10 @@ from zoneinfo import ZoneInfo
 
 ROOT = Path(__file__).resolve().parents[1]
 TARGET = ROOT / "site" / "data" / "etf-premiums.json"
+HISTORY_TARGET = ROOT / "data" / "etf-premium-history.json"
 API_BASE = "https://api.freebacktrack.tech"
-HISTORY_DAYS = 180
+HISTORY_TRADING_DAYS = 120
+FETCH_CALENDAR_DAYS = 240
 ETF_NAMES = {
     "159501": "嘉实纳斯达克100ETF",
     "159696": "易方达纳斯达克100ETF",
@@ -30,13 +32,7 @@ ETF_NAMES = {
     "159513": "大成纳斯达克100ETF",
     "513110": "华泰柏瑞纳斯达克100ETF",
 }
-PREMIUM_BINS = (
-    ("discount", "折价 < 0%", None, 0.0),
-    ("low", "0%–3%", 0.0, 3.0),
-    ("medium", "3%–6%", 3.0, 6.0),
-    ("high", "6%–10%", 6.0, 10.0),
-    ("extreme", "≥ 10%", 10.0, None),
-)
+BIN_KEYS = ("discount", "low", "medium", "high", "extreme")
 
 
 def fetch_json(url: str, *, payload: dict | None = None) -> dict:
@@ -103,15 +99,101 @@ def build_history(nav_items: list[dict], candles: list[dict], start: str, end: s
     return history
 
 
+def nice_step(raw_step: float) -> float:
+    if not math.isfinite(raw_step) or raw_step <= 0:
+        return 1.0
+    exponent = math.floor(math.log10(raw_step))
+    scale = 10 ** exponent
+    fraction = raw_step / scale
+    if fraction <= 1:
+        nice_fraction = 1
+    elif fraction <= 2:
+        nice_fraction = 2
+    elif fraction <= 2.5:
+        nice_fraction = 2.5
+    elif fraction <= 5:
+        nice_fraction = 5
+    else:
+        nice_fraction = 10
+    return nice_fraction * scale
+
+
+def fund_bins(values: list[float]) -> tuple[tuple[str, str, float | None, float | None], ...]:
+    finite = sorted(value for value in values if math.isfinite(value))
+    if not finite:
+        cutoffs = (0.0, 3.0, 6.0, 10.0)
+    else:
+        span = finite[-1] - finite[0]
+        step = nice_step(span / 4) if span > 0 else nice_step(max(abs(finite[0]) * 0.1, 0.5))
+        first = math.floor(finite[0] / step) * step + step
+        cutoffs = tuple(round(first + index * step, 4) for index in range(4))
+
+    def display(value: float) -> str:
+        return f"{value:g}%"
+
+    a, b, c, d = cutoffs
+    return (
+        (BIN_KEYS[0], f"< {display(a)}", None, a),
+        (BIN_KEYS[1], f"{display(a)}–{display(b)}", a, b),
+        (BIN_KEYS[2], f"{display(b)}–{display(c)}", b, c),
+        (BIN_KEYS[3], f"{display(c)}–{display(d)}", c, d),
+        (BIN_KEYS[4], f"≥ {display(d)}", d, None),
+    )
+
+
 def distribution(values: list[float]) -> list[dict]:
     result: list[dict] = []
-    for key, label, lower, upper in PREMIUM_BINS:
+    for key, label, lower, upper in fund_bins(values):
         count = sum(
             (lower is None or value >= lower) and (upper is None or value < upper)
             for value in values
         )
         result.append({"key": key, "label": label, "count": count})
     return result
+
+
+def load_saved_history() -> dict[str, list[dict]]:
+    if not HISTORY_TARGET.exists():
+        return {}
+    try:
+        payload = json.loads(HISTORY_TARGET.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+    return {
+        str(code): items
+        for code, items in payload.get("funds", {}).items()
+        if isinstance(items, list)
+    }
+
+
+def merge_history(*groups: list[dict]) -> list[dict]:
+    by_date: dict[str, dict] = {}
+    for group in groups:
+        for item in group:
+            item_date = str(item.get("date", ""))[:10]
+            try:
+                premium_value = float(item.get("premium"))
+            except (TypeError, ValueError):
+                continue
+            if len(item_date) != 10 or not math.isfinite(premium_value):
+                continue
+            by_date[item_date] = {
+                "date": item_date,
+                "close": number_or_none(item.get("close")),
+                "nav": number_or_none(item.get("nav")),
+                "premium": round(premium_value, 4),
+            }
+    return [by_date[key] for key in sorted(by_date)][-HISTORY_TRADING_DAYS:]
+
+
+def current_history_item(metric: dict) -> list[dict]:
+    item_date = str(metric.get("quoteDate") or "")[:10]
+    close = number_or_none(metric.get("price") or metric.get("currentPrice") or metric.get("close"))
+    nav = number_or_none(metric.get("navBase") or metric.get("iopv"))
+    premium_value = number_or_none(metric.get("premiumPercent"))
+    if len(item_date) != 10 or close is None or nav is None or premium_value is None:
+        return []
+    return [{"date": item_date, "close": close, "nav": nav, "premium": premium_value}]
 
 
 def percentile(values: list[float], current: float | None) -> float | None:
@@ -151,11 +233,12 @@ def number_or_none(value: object) -> float | None:
 
 def main() -> int:
     end_date = date.today()
-    start_date = end_date - timedelta(days=HISTORY_DAYS)
+    start_date = end_date - timedelta(days=FETCH_CALENDAR_DAYS)
     start = start_date.isoformat()
     end = end_date.isoformat()
     codes = list(ETF_NAMES)
     metrics = current_metrics(codes)
+    saved_histories = load_saved_history()
     histories: dict[str, list[dict]] = {}
     errors: dict[str, str] = {}
 
@@ -172,7 +255,12 @@ def main() -> int:
     funds = []
     for code, fallback_name in ETF_NAMES.items():
         metric = metrics.get(code, {})
-        history = histories.get(code, [])
+        history = merge_history(
+            saved_histories.get(code, []),
+            histories.get(code, []),
+            current_history_item(metric),
+        )
+        histories[code] = history
         values = [float(item["premium"]) for item in history]
         current_premium = number_or_none(metric.get("premiumPercent"))
         funds.append({
@@ -191,13 +279,19 @@ def main() -> int:
             "error": errors.get(code, ""),
         })
 
+    all_history = [item for items in histories.values() for item in items]
+    history_dates = sorted({str(item.get("date", "")) for item in all_history if item.get("date")})
     payload = {
         "schema_version": 1,
         "fetched_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-        "window": {"calendar_days": HISTORY_DAYS, "from": start, "to": end},
+        "window": {
+            "trading_days": HISTORY_TRADING_DAYS,
+            "from": history_dates[0] if history_dates else start,
+            "to": history_dates[-1] if history_dates else end,
+        },
         "methodology": {
             "current": "实时场内价格 / 估算净值基准 - 1",
-            "history": "每日场内收盘价 / 同日官方单位净值 - 1",
+            "history": "每日收盘后记录场内价格与估算净值；历史接口补齐后按官方单位净值校正",
             "percentile": "历史样本中溢价率小于等于当前溢价率的比例",
         },
         "source": {
@@ -210,7 +304,12 @@ def main() -> int:
     temporary = TARGET.with_suffix(".json.tmp")
     temporary.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     temporary.replace(TARGET)
-    print(f"已保存 {len(funds)} 只纳指ETF的近{HISTORY_DAYS}天溢价数据：{TARGET}")
+    history_payload = {"schema_version": 1, "max_trading_days": HISTORY_TRADING_DAYS, "funds": histories}
+    HISTORY_TARGET.parent.mkdir(parents=True, exist_ok=True)
+    history_temporary = HISTORY_TARGET.with_suffix(".json.tmp")
+    history_temporary.write_text(json.dumps(history_payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    history_temporary.replace(HISTORY_TARGET)
+    print(f"已保存 {len(funds)} 只纳指ETF的近{HISTORY_TRADING_DAYS}个交易日溢价数据：{TARGET}")
     return 0
 
 

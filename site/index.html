@@ -86,7 +86,7 @@
             <option value="">正在载入基金列表...</option>
           </select>
         </div>
-        <p class="premium-updated" id="premiumUpdated">等待近180天溢价数据</p>
+        <p class="premium-updated" id="premiumUpdated">等待近120个交易日溢价数据</p>
       </div>
       <div class="premium-result is-hidden" id="premiumResult">
         <div class="premium-result-head">
@@ -95,15 +95,15 @@
         </div>
         <div class="premium-stats">
           <div><span>当前溢价率</span><strong id="premiumCurrent">--</strong><small id="premiumQuoteDate">行情日期 --</small></div>
-          <div><span>近180天百分位</span><strong id="premiumPercentile">--</strong><small id="premiumSampleCount">有效样本 --</small></div>
+          <div><span>近120个交易日百分位</span><strong id="premiumPercentile">--</strong><small id="premiumSampleCount">有效样本 --</small></div>
         </div>
         <div class="premium-chart-layout">
-          <div class="premium-donut" id="premiumDonut" role="img" aria-label="近180天溢价率分布">
+          <div class="premium-donut" id="premiumDonut" role="img" aria-label="近120个交易日溢价率分布">
             <div><strong id="premiumDays">--</strong><span>有效交易日</span></div>
           </div>
           <div class="premium-legend" id="premiumLegend"></div>
         </div>
-        <p class="premium-method">历史分布按每日收盘价与同日官方单位净值计算；当前溢价按最新价格与估算净值计算。</p>
+        <p class="premium-method">每只基金按照自身近120个交易日的溢价区间独立分档；每日收盘后记录，超过120条自动删除最早记录。</p>
       </div>
       <div class="premium-error is-hidden" id="premiumError"></div>
     </section>
@@ -127,6 +127,6 @@
     <footer><p>每日数据由 GitHub Actions 更新 · 无需登录</p><p>规则信号仅供信息参考，不构成投资建议。</p></footer>
     <nav class="bottom-nav" aria-label="应用导航"><a href="#top" class="active"><span>●</span>今日</a><a href="#indicators"><span>▦</span>指标</a><a href="#nasdaq-dca"><span>◎</span>定投</a><a href="#etf-premium"><span>◔</span>溢价</a><a href="#trend"><span>▥</span>位置</a></nav>
   </main>
-  <script src="./app.js?v=20260820-3" defer></script>
+  <script src="./app.js?v=20260820-4" defer></script>
 </body>
 </html>

@@ -1,5 +1,5 @@
-const CACHE = "market-pulse-pages-v6";
-const APP_SHELL = ["./", "./styles.css?v=20260820-3", "./app.js?v=20260820-3", "./manifest.webmanifest", "./icons/icon.svg"];
+const CACHE = "market-pulse-pages-v7";
+const APP_SHELL = ["./", "./styles.css?v=20260820-3", "./app.js?v=20260820-4", "./manifest.webmanifest", "./icons/icon.svg"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(APP_SHELL)));

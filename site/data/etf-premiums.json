@@ -1,14 +1,14 @@
 {
   "schema_version": 1,
-  "fetched_at": "2026-08-20T07:48:38+00:00",
+  "fetched_at": "2026-08-20T08:05:38+00:00",
   "window": {
-    "calendar_days": 180,
-    "from": "2026-02-21",
+    "trading_days": 120,
+    "from": "2026-02-26",
     "to": "2026-08-20"
   },
   "methodology": {
     "current": "实时场内价格 / 估算净值基准 - 1",
-    "history": "每日场内收盘价 / 同日官方单位净值 - 1",
+    "history": "每日收盘后记录场内价格与估算净值；历史接口补齐后按官方单位净值校正",
     "percentile": "历史样本中溢价率小于等于当前溢价率的比例"
   },
   "source": {
@@ -26,33 +26,33 @@
         "quote_date": "2026-08-20",
         "nav_date": "2026-08-18"
       },
-      "sample_count": 121,
-      "percentile": 93.4,
+      "sample_count": 120,
+      "percentile": 93.3,
       "distribution": [
         {
           "key": "discount",
-          "label": "折价 < 0%",
+          "label": "< 0%",
           "count": 1
         },
         {
           "key": "low",
-          "label": "0%–3%",
-          "count": 21
+          "label": "0%–5%",
+          "count": 52
         },
         {
           "key": "medium",
-          "label": "3%–6%",
-          "count": 39
+          "label": "5%–10%",
+          "count": 36
         },
         {
           "key": "high",
-          "label": "6%–10%",
-          "count": 30
+          "label": "10%–15%",
+          "count": 31
         },
         {
           "key": "extreme",
-          "label": "≥ 10%",
-          "count": 30
+          "label": "≥ 15%",
+          "count": 0
         }
       ],
       "error": ""
@@ -67,33 +67,33 @@
         "quote_date": "2026-08-20",
         "nav_date": "2026-08-19"
       },
-      "sample_count": 121,
-      "percentile": 88.4,
+      "sample_count": 120,
+      "percentile": 88.3,
       "distribution": [
         {
           "key": "discount",
-          "label": "折价 < 0%",
+          "label": "< 0%",
           "count": 1
         },
         {
           "key": "low",
-          "label": "0%–3%",
-          "count": 26
+          "label": "0%–5%",
+          "count": 55
         },
         {
           "key": "medium",
-          "label": "3%–6%",
-          "count": 37
+          "label": "5%–10%",
+          "count": 51
         },
         {
           "key": "high",
-          "label": "6%–10%",
-          "count": 44
+          "label": "10%–15%",
+          "count": 13
         },
         {
           "key": "extreme",
-          "label": "≥ 10%",
-          "count": 13
+          "label": "≥ 15%",
+          "count": 0
         }
       ],
       "error": ""
@@ -108,33 +108,33 @@
         "quote_date": "2026-08-20",
         "nav_date": "2026-08-18"
       },
-      "sample_count": 121,
-      "percentile": 86.8,
+      "sample_count": 120,
+      "percentile": 86.7,
       "distribution": [
         {
           "key": "discount",
-          "label": "折价 < 0%",
+          "label": "< 0%",
           "count": 1
         },
         {
           "key": "low",
-          "label": "0%–3%",
-          "count": 36
+          "label": "0%–5%",
+          "count": 59
         },
         {
           "key": "medium",
-          "label": "3%–6%",
-          "count": 36
+          "label": "5%–10%",
+          "count": 56
         },
         {
           "key": "high",
-          "label": "6%–10%",
-          "count": 44
+          "label": "10%–15%",
+          "count": 4
         },
         {
           "key": "extreme",
-          "label": "≥ 10%",
-          "count": 4
+          "label": "≥ 15%",
+          "count": 0
         }
       ],
       "error": ""
@@ -149,33 +149,33 @@
         "quote_date": "2026-08-20",
         "nav_date": "2026-08-18"
       },
-      "sample_count": 121,
-      "percentile": 87.6,
+      "sample_count": 120,
+      "percentile": 87.5,
       "distribution": [
         {
           "key": "discount",
-          "label": "折价 < 0%",
+          "label": "< 0%",
           "count": 2
         },
         {
           "key": "low",
-          "label": "0%–3%",
-          "count": 42
+          "label": "0%–5%",
+          "count": 61
         },
         {
           "key": "medium",
-          "label": "3%–6%",
-          "count": 36
+          "label": "5%–10%",
+          "count": 55
         },
         {
           "key": "high",
-          "label": "6%–10%",
-          "count": 39
+          "label": "10%–15%",
+          "count": 2
         },
         {
           "key": "extreme",
-          "label": "≥ 10%",
-          "count": 2
+          "label": "≥ 15%",
+          "count": 0
         }
       ],
       "error": ""
@@ -190,33 +190,33 @@
         "quote_date": "2026-08-20",
         "nav_date": "2026-08-18"
       },
-      "sample_count": 121,
+      "sample_count": 120,
       "percentile": 91.7,
       "distribution": [
         {
           "key": "discount",
-          "label": "折价 < 0%",
+          "label": "< 0%",
           "count": 1
         },
         {
           "key": "low",
-          "label": "0%–3%",
-          "count": 36
+          "label": "0%–5%",
+          "count": 62
         },
         {
           "key": "medium",
-          "label": "3%–6%",
-          "count": 37
+          "label": "5%–10%",
+          "count": 53
         },
         {
           "key": "high",
-          "label": "6%–10%",
-          "count": 43
+          "label": "10%–15%",
+          "count": 4
         },
         {
           "key": "extreme",
-          "label": "≥ 10%",
-          "count": 4
+          "label": "≥ 15%",
+          "count": 0
         }
       ],
       "error": ""
@@ -231,33 +231,33 @@
         "quote_date": "2026-08-20",
         "nav_date": "2026-08-18"
       },
-      "sample_count": 121,
+      "sample_count": 120,
       "percentile": 98.3,
       "distribution": [
         {
           "key": "discount",
-          "label": "折价 < 0%",
-          "count": 0
-        },
-        {
-          "key": "low",
-          "label": "0%–3%",
-          "count": 0
-        },
-        {
-          "key": "medium",
-          "label": "3%–6%",
-          "count": 0
-        },
-        {
-          "key": "high",
-          "label": "6%–10%",
+          "label": "< 10%",
           "count": 1
         },
         {
+          "key": "low",
+          "label": "10%–15%",
+          "count": 20
+        },
+        {
+          "key": "medium",
+          "label": "15%–20%",
+          "count": 74
+        },
+        {
+          "key": "high",
+          "label": "20%–25%",
+          "count": 23
+        },
+        {
           "key": "extreme",
-          "label": "≥ 10%",
-          "count": 120
+          "label": "≥ 25%",
+          "count": 2
         }
       ],
       "error": ""
@@ -272,33 +272,33 @@
         "quote_date": "2026-08-20",
         "nav_date": "2026-08-18"
       },
-      "sample_count": 121,
-      "percentile": 87.6,
+      "sample_count": 120,
+      "percentile": 87.5,
       "distribution": [
         {
           "key": "discount",
-          "label": "折价 < 0%",
-          "count": 0
+          "label": "< 5%",
+          "count": 38
         },
         {
           "key": "low",
-          "label": "0%–3%",
-          "count": 8
+          "label": "5%–10%",
+          "count": 54
         },
         {
           "key": "medium",
-          "label": "3%–6%",
-          "count": 46
+          "label": "10%–15%",
+          "count": 28
         },
         {
           "key": "high",
-          "label": "6%–10%",
-          "count": 40
+          "label": "15%–20%",
+          "count": 0
         },
         {
           "key": "extreme",
-          "label": "≥ 10%",
-          "count": 27
+          "label": "≥ 20%",
+          "count": 0
         }
       ],
       "error": ""
@@ -313,33 +313,33 @@
         "quote_date": "2026-08-20",
         "nav_date": "2026-08-18"
       },
-      "sample_count": 121,
-      "percentile": 86.8,
+      "sample_count": 120,
+      "percentile": 86.7,
       "distribution": [
         {
           "key": "discount",
-          "label": "折价 < 0%",
-          "count": 0
+          "label": "< 5%",
+          "count": 53
         },
         {
           "key": "low",
-          "label": "0%–3%",
-          "count": 22
+          "label": "5%–10%",
+          "count": 47
         },
         {
           "key": "medium",
-          "label": "3%–6%",
-          "count": 41
+          "label": "10%–15%",
+          "count": 20
         },
         {
           "key": "high",
-          "label": "6%–10%",
-          "count": 39
+          "label": "15%–20%",
+          "count": 0
         },
         {
           "key": "extreme",
-          "label": "≥ 10%",
-          "count": 19
+          "label": "≥ 20%",
+          "count": 0
         }
       ],
       "error": ""
@@ -354,33 +354,33 @@
         "quote_date": "2026-08-20",
         "nav_date": "2026-08-18"
       },
-      "sample_count": 121,
-      "percentile": 86.8,
+      "sample_count": 120,
+      "percentile": 86.7,
       "distribution": [
         {
           "key": "discount",
-          "label": "折价 < 0%",
+          "label": "< 0%",
           "count": 2
         },
         {
           "key": "low",
-          "label": "0%–3%",
-          "count": 32
+          "label": "0%–5%",
+          "count": 59
         },
         {
           "key": "medium",
-          "label": "3%–6%",
-          "count": 34
+          "label": "5%–10%",
+          "count": 55
         },
         {
           "key": "high",
-          "label": "6%–10%",
-          "count": 49
+          "label": "10%–15%",
+          "count": 4
         },
         {
           "key": "extreme",
-          "label": "≥ 10%",
-          "count": 4
+          "label": "≥ 15%",
+          "count": 0
         }
       ],
       "error": ""
@@ -395,33 +395,33 @@
         "quote_date": "2026-08-20",
         "nav_date": "2026-08-18"
       },
-      "sample_count": 121,
-      "percentile": 87.6,
+      "sample_count": 120,
+      "percentile": 87.5,
       "distribution": [
         {
           "key": "discount",
-          "label": "折价 < 0%",
+          "label": "< 0%",
           "count": 1
         },
         {
           "key": "low",
-          "label": "0%–3%",
-          "count": 29
+          "label": "0%–5%",
+          "count": 62
         },
         {
           "key": "medium",
-          "label": "3%–6%",
-          "count": 44
+          "label": "5%–10%",
+          "count": 54
         },
         {
           "key": "high",
-          "label": "6%–10%",
-          "count": 44
+          "label": "10%–15%",
+          "count": 3
         },
         {
           "key": "extreme",
-          "label": "≥ 10%",
-          "count": 3
+          "label": "≥ 15%",
+          "count": 0
         }
       ],
       "error": ""
@@ -436,33 +436,33 @@
         "quote_date": "2026-08-20",
         "nav_date": "2026-08-18"
       },
-      "sample_count": 121,
-      "percentile": 88.4,
+      "sample_count": 120,
+      "percentile": 88.3,
       "distribution": [
         {
           "key": "discount",
-          "label": "折价 < 0%",
+          "label": "< 0%",
           "count": 1
         },
         {
           "key": "low",
-          "label": "0%–3%",
-          "count": 35
+          "label": "0%–5%",
+          "count": 60
         },
         {
           "key": "medium",
-          "label": "3%–6%",
-          "count": 43
+          "label": "5%–10%",
+          "count": 56
         },
         {
           "key": "high",
-          "label": "6%–10%",
-          "count": 39
+          "label": "10%–15%",
+          "count": 3
         },
         {
           "key": "extreme",
-          "label": "≥ 10%",
-          "count": 3
+          "label": "≥ 15%",
+          "count": 0
         }
       ],
       "error": ""
@@ -477,33 +477,33 @@
         "quote_date": "2026-08-20",
         "nav_date": "2026-08-18"
       },
-      "sample_count": 121,
-      "percentile": 85.1,
+      "sample_count": 120,
+      "percentile": 85.0,
       "distribution": [
         {
           "key": "discount",
-          "label": "折价 < 0%",
+          "label": "< 0%",
           "count": 2
         },
         {
           "key": "low",
-          "label": "0%–3%",
-          "count": 36
+          "label": "0%–5%",
+          "count": 58
         },
         {
           "key": "medium",
-          "label": "3%–6%",
-          "count": 40
+          "label": "5%–10%",
+          "count": 57
         },
         {
           "key": "high",
-          "label": "6%–10%",
-          "count": 40
+          "label": "10%–15%",
+          "count": 3
         },
         {
           "key": "extreme",
-          "label": "≥ 10%",
-          "count": 3
+          "label": "≥ 15%",
+          "count": 0
         }
       ],
       "error": ""
@@ -518,33 +518,33 @@
         "quote_date": "2026-08-20",
         "nav_date": "2026-08-18"
       },
-      "sample_count": 121,
-      "percentile": 88.4,
+      "sample_count": 120,
+      "percentile": 88.3,
       "distribution": [
         {
           "key": "discount",
-          "label": "折价 < 0%",
+          "label": "< 0%",
           "count": 1
         },
         {
           "key": "low",
-          "label": "0%–3%",
-          "count": 43
+          "label": "0%–5%",
+          "count": 62
         },
         {
           "key": "medium",
-          "label": "3%–6%",
-          "count": 36
+          "label": "5%–10%",
+          "count": 55
         },
         {
           "key": "high",
-          "label": "6%–10%",
-          "count": 39
+          "label": "10%–15%",
+          "count": 2
         },
         {
           "key": "extreme",
-          "label": "≥ 10%",
-          "count": 2
+          "label": "≥ 15%",
+          "count": 0
         }
       ],
       "error": ""

@@ -184,7 +184,7 @@ function renderPremiumFund(code) {
   });
   const donut = document.getElementById("premiumDonut");
   donut.style.background = total ? `conic-gradient(${segments.join(",")})` : "#e1e5df";
-  donut.setAttribute("aria-label", `${fund.name}近180天溢价率分布，共${total}个有效交易日`);
+  donut.setAttribute("aria-label", `${fund.name}近120个交易日溢价率分布，共${total}个有效交易日`);
   document.getElementById("premiumLegend").innerHTML = distribution.map((item) => {
     const count = Number(item.count || 0);
     const share = total ? count / total * 100 : 0;
@@ -198,7 +198,7 @@ function preparePremium(payload) {
   const funds = Array.isArray(payload?.funds) ? payload.funds : [];
   const select = document.getElementById("premiumFundSelect");
   select.innerHTML = funds.map((fund) => `<option value="${escapeHtml(fund.code)}">${escapeHtml(fund.code)} · ${escapeHtml(fund.name)}</option>`).join("");
-  document.getElementById("premiumUpdated").textContent = `数据更新：北京 ${dateTime(payload.fetched_at)} · ${payload.window?.calendar_days || 180}天窗口`;
+  document.getElementById("premiumUpdated").textContent = `数据更新：北京 ${dateTime(payload.fetched_at)} · 最近${payload.window?.trading_days || 120}个交易日`;
   const defaultFund = funds.find((fund) => fund.code === "159501") || funds[0];
   if (defaultFund) {
     select.value = defaultFund.code;
