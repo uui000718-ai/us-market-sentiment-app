@@ -1,6 +1,8 @@
 const DATA_URL = "./data/latest.json";
 const DCA_URL = "./data/nasdaq-dca.json";
+const PREMIUM_URL = "./data/etf-premiums.json";
 const CODES = { aaii: "AA", ndx_forward_pe: "PE", naaim: "NA", cftc_positioning: "CF", vix: "VX", qqq_rsi: "RS" };
+const PREMIUM_COLORS = { discount: "#6aa9c8", low: "#71c7a6", medium: "#c9f174", high: "#e5a93f", extreme: "#cc5a49" };
 const DCA_DIMENSIONS = [
   ["pe", "PE估值", "12%"], ["pb", "PB估值", "8%"], ["macd", "MACD", "10%"],
   ["rsi", "RSI", "8%"], ["bollinger", "布林带", "7%"], ["ma50", "MA50", "10%"],
@@ -134,10 +136,97 @@ async function loadDcaData() {
   }
 }
 
+let premiumPayload = null;
+
+function premiumLevel(percentile) {
+  const value = Number(percentile);
+  if (!Number.isFinite(value)) return ["样本不足", "neutral"];
+  if (value >= 90) return ["历史高位", "danger"];
+  if (value >= 75) return ["历史偏高", "warning"];
+  if (value <= 10) return ["历史低位", "ok"];
+  if (value <= 25) return ["历史偏低", "ok"];
+  return ["历史中位", "neutral"];
+}
+
+function renderPremiumFund(code) {
+  const error = document.getElementById("premiumError");
+  const result = document.getElementById("premiumResult");
+  error.classList.add("is-hidden");
+  const fund = premiumPayload?.funds?.find((item) => item.code === code);
+  if (!fund) {
+    result.classList.add("is-hidden");
+    error.textContent = "没有找到这只基金的溢价数据，请稍后刷新。";
+    error.classList.remove("is-hidden");
+    return;
+  }
+  const current = Number(fund.current?.premium);
+  const percentile = Number(fund.percentile);
+  const [levelText, levelTone] = premiumLevel(percentile);
+  document.getElementById("premiumFundCode").textContent = fund.code;
+  document.getElementById("premiumFundName").textContent = fund.name;
+  document.getElementById("premiumCurrent").textContent = Number.isFinite(current) ? `${current > 0 ? "+" : ""}${current.toFixed(2)}%` : "--";
+  document.getElementById("premiumPercentile").textContent = Number.isFinite(percentile) ? `${percentile.toFixed(1)}%` : "--";
+  document.getElementById("premiumQuoteDate").textContent = `行情 ${fund.current?.quote_date || "--"} · 净值 ${fund.current?.nav_date || "--"}`;
+  document.getElementById("premiumSampleCount").textContent = `有效样本 ${fund.sample_count || 0} 个交易日`;
+  const level = document.getElementById("premiumLevel");
+  level.textContent = levelText;
+  level.className = `premium-level ${levelTone}`;
+
+  const distribution = Array.isArray(fund.distribution) ? fund.distribution : [];
+  const total = distribution.reduce((sum, item) => sum + Number(item.count || 0), 0);
+  document.getElementById("premiumDays").textContent = total || "--";
+  let accumulated = 0;
+  const segments = distribution.filter((item) => Number(item.count) > 0).map((item) => {
+    const start = accumulated / total * 360;
+    accumulated += Number(item.count);
+    const end = accumulated / total * 360;
+    return `${PREMIUM_COLORS[item.key] || "#aab4b0"} ${start.toFixed(2)}deg ${end.toFixed(2)}deg`;
+  });
+  const donut = document.getElementById("premiumDonut");
+  donut.style.background = total ? `conic-gradient(${segments.join(",")})` : "#e1e5df";
+  donut.setAttribute("aria-label", `${fund.name}近180天溢价率分布，共${total}个有效交易日`);
+  document.getElementById("premiumLegend").innerHTML = distribution.map((item) => {
+    const count = Number(item.count || 0);
+    const share = total ? count / total * 100 : 0;
+    return `<div class="premium-legend-item"><i style="background:${PREMIUM_COLORS[item.key] || "#aab4b0"}"></i><span>${escapeHtml(item.label)}</span><strong>${count}天</strong><small>${share.toFixed(1)}%</small></div>`;
+  }).join("");
+  result.classList.remove("is-hidden");
+}
+
+function preparePremium(payload) {
+  premiumPayload = payload;
+  const funds = Array.isArray(payload?.funds) ? payload.funds : [];
+  const select = document.getElementById("premiumFundSelect");
+  select.innerHTML = funds.map((fund) => `<option value="${escapeHtml(fund.code)}">${escapeHtml(fund.code)} · ${escapeHtml(fund.name)}</option>`).join("");
+  document.getElementById("premiumUpdated").textContent = `数据更新：北京 ${dateTime(payload.fetched_at)} · ${payload.window?.calendar_days || 180}天窗口`;
+  if (funds.length) renderPremiumFund(funds[0].code);
+}
+
+async function loadPremiumData() {
+  const error = document.getElementById("premiumError");
+  error.classList.add("is-hidden");
+  try {
+    const response = await fetch(`${PREMIUM_URL}?t=${Date.now()}`, { cache: "no-store" });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const payload = await response.json();
+    if (!Array.isArray(payload.funds) || !payload.funds.length) throw new Error("基金列表为空");
+    localStorage.setItem("etf-premium-report", JSON.stringify(payload));
+    preparePremium(payload);
+  } catch (reason) {
+    const cached = localStorage.getItem("etf-premium-report");
+    if (cached) preparePremium(JSON.parse(cached));
+    else {
+      error.textContent = `溢价数据暂时无法读取：${reason.message}。请稍后刷新。`;
+      error.classList.remove("is-hidden");
+    }
+  }
+}
+
 function loadAll() {
-  return Promise.allSettled([loadData(), loadDcaData()]);
+  return Promise.allSettled([loadData(), loadDcaData(), loadPremiumData()]);
 }
 
 document.getElementById("refreshButton").addEventListener("click", loadAll);
+document.getElementById("premiumQueryButton").addEventListener("click", () => renderPremiumFund(document.getElementById("premiumFundSelect").value));
 if ("serviceWorker" in navigator) window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js").catch(() => {}));
 loadAll();

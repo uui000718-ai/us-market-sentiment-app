@@ -74,6 +74,41 @@
       <p class="dca-source-note">数据源自 btcdca.me。</p>
     </section>
 
+    <section class="section-block premium-module" id="etf-premium">
+      <div class="section-heading">
+        <div><p class="section-kicker">NASDAQ ETF PREMIUM</p><h2>纳指ETF溢价查询</h2></div>
+        <span class="count-chip">13只场内ETF</span>
+      </div>
+      <div class="premium-query-card">
+        <label for="premiumFundSelect">选择基金</label>
+        <div class="premium-query-row">
+          <select id="premiumFundSelect" aria-label="选择一只纳指ETF">
+            <option value="">正在载入基金列表...</option>
+          </select>
+          <button type="button" id="premiumQueryButton">查询</button>
+        </div>
+        <p class="premium-updated" id="premiumUpdated">等待近180天溢价数据</p>
+      </div>
+      <div class="premium-result is-hidden" id="premiumResult">
+        <div class="premium-result-head">
+          <div><span id="premiumFundCode">------</span><h3 id="premiumFundName">等待查询</h3></div>
+          <span class="premium-level" id="premiumLevel">--</span>
+        </div>
+        <div class="premium-stats">
+          <div><span>当前溢价率</span><strong id="premiumCurrent">--</strong><small id="premiumQuoteDate">行情日期 --</small></div>
+          <div><span>近180天百分位</span><strong id="premiumPercentile">--</strong><small id="premiumSampleCount">有效样本 --</small></div>
+        </div>
+        <div class="premium-chart-layout">
+          <div class="premium-donut" id="premiumDonut" role="img" aria-label="近180天溢价率分布">
+            <div><strong id="premiumDays">--</strong><span>有效交易日</span></div>
+          </div>
+          <div class="premium-legend" id="premiumLegend"></div>
+        </div>
+        <p class="premium-method">历史分布按每日收盘价与同日官方单位净值计算；当前溢价按最新价格与估算净值计算。</p>
+      </div>
+      <div class="premium-error is-hidden" id="premiumError"></div>
+    </section>
+
     <section class="section-block" id="indicators">
       <div class="section-heading"><div><p class="section-kicker">SIX SIGNALS</p><h2>六项核心指标</h2></div><span class="count-chip" id="indicatorCount">0/6 已同步</span></div>
       <div class="indicator-list" id="indicatorList"></div>
@@ -91,7 +126,7 @@
     </section>
 
     <footer><p>每日数据由 GitHub Actions 更新 · 无需登录</p><p>规则信号仅供信息参考，不构成投资建议。</p></footer>
-    <nav class="bottom-nav" aria-label="应用导航"><a href="#top" class="active"><span>●</span>今日</a><a href="#indicators"><span>▦</span>指标</a><a href="#nasdaq-dca"><span>◎</span>定投</a><a href="#trend"><span>▥</span>位置</a></nav>
+    <nav class="bottom-nav" aria-label="应用导航"><a href="#top" class="active"><span>●</span>今日</a><a href="#indicators"><span>▦</span>指标</a><a href="#nasdaq-dca"><span>◎</span>定投</a><a href="#etf-premium"><span>◔</span>溢价</a><a href="#trend"><span>▥</span>位置</a></nav>
   </main>
   <script src="./app.js" defer></script>
 </body>

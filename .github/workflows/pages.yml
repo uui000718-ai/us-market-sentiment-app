@@ -5,9 +5,11 @@ on:
     branches: ["main"]
   workflow_dispatch:
   schedule:
-    # 工作日北京时间约 06:47 和 08:17；均在美股收盘后、A股开盘前。
+    # 工作日北京时间约 06:47 和 08:17：美股收盘后、A股开盘前。
     - cron: "47 22 * * 1-5"
     - cron: "17 0 * * 2-6"
+    # 工作日北京时间约 15:20：A股收盘后更新场内ETF溢价。
+    - cron: "20 7 * * 1-5"
 
 permissions:
   contents: write
@@ -35,6 +37,8 @@ jobs:
         run: python app.py
       - name: 获取第三方纳指12维度评分
         run: python scripts/fetch_btcdca.py
+      - name: 获取13只纳指ETF近180天溢价数据
+        run: python scripts/fetch_etf_premiums.py
       - name: 发布到 gh-pages 分支
         uses: peaceiris/actions-gh-pages@84c30a85c19949d7eee79c4ff27748b70285e453 # v4.1.0
         with:
