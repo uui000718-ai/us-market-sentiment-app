@@ -188,7 +188,6 @@ def main() -> int:
             "sample_count": len(history),
             "percentile": percentile(values, current_premium),
             "distribution": distribution(values),
-            "history": history,
             "error": errors.get(code, ""),
         })
 

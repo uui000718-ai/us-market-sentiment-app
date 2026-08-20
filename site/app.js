@@ -220,6 +220,7 @@ async function loadPremiumData() {
     const cached = localStorage.getItem("etf-premium-report");
     if (cached) preparePremium(JSON.parse(cached));
     else {
+      document.getElementById("premiumFundSelect").innerHTML = '<option value="">载入失败，请点击右上角刷新</option>';
       error.textContent = `溢价数据暂时无法读取：${reason.message}。请稍后刷新。`;
       error.classList.remove("is-hidden");
     }
@@ -230,7 +231,9 @@ function loadAll() {
   return Promise.allSettled([loadData(), loadDcaData(), loadPremiumData()]);
 }
 
-document.getElementById("refreshButton").addEventListener("click", loadAll);
-document.getElementById("premiumFundSelect").addEventListener("change", (event) => renderPremiumFund(event.target.value));
+const refreshButton = document.getElementById("refreshButton");
+if (refreshButton) refreshButton.addEventListener("click", loadAll);
+const premiumFundSelect = document.getElementById("premiumFundSelect");
+if (premiumFundSelect) premiumFundSelect.addEventListener("change", (event) => renderPremiumFund(event.target.value));
 if ("serviceWorker" in navigator) window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js").catch(() => {}));
 loadAll();
