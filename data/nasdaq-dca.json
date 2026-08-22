@@ -1,0 +1,110 @@
+{
+  "schema_version": 1,
+  "fetched_at": "2026-08-22T01:53:43+00:00",
+  "source": {
+    "homepage": "https://www.btcdca.me/nasdaq/",
+    "top_score": "https://www.btcdca.me/nasdaq/api/score",
+    "dimensions": "https://www.btcdca.me/nasdaq/api/score-12d"
+  },
+  "top": {
+    "advice": "🟡 标准区-标准定投",
+    "eventType": "🟡 标准区",
+    "indicators": {
+      "macro": {
+        "dxy": 98.84,
+        "score": 72.05640316009521,
+        "vix": 15.13,
+        "yield10y": 4.74
+      },
+      "sentiment": {
+        "classification": "Greed",
+        "fearGreed": 71,
+        "score": 35
+      },
+      "technical": {
+        "ma200Ratio": 1.09,
+        "ma50Ratio": 0.9994530365330608,
+        "rsi": 57.85201386310757,
+        "score": 61
+      },
+      "valuation": {
+        "pb": 8.33,
+        "pe": 30.51,
+        "peg": 1.5,
+        "roe": 25.0,
+        "score": 41.75064712546863
+      }
+    },
+    "indicatorsChanged": true,
+    "multiplier": 0.95,
+    "priceChange": 0.33,
+    "qqqPrice": 29308.859375,
+    "scoreChange": 0,
+    "status": "标准区-标准定投",
+    "timestamp": 1787363621457,
+    "totalScore": 52,
+    "weights": {
+      "macro": 20,
+      "sentiment": 10,
+      "technical": 25,
+      "valuation": 45
+    },
+    "yesterdayScore": 52
+  },
+  "twelve": {
+    "dimensions": {
+      "aaii": {
+        "score": 60,
+        "value": 35.0
+      },
+      "bollinger": {
+        "score": 50,
+        "value": 50
+      },
+      "dxy": {
+        "score": 60,
+        "value": 98.83899688720703
+      },
+      "fearGreed": {
+        "score": 25,
+        "value": 71
+      },
+      "ma200": {
+        "score": 70,
+        "value": 1.0925191735531963
+      },
+      "ma50": {
+        "score": 50,
+        "value": 0.9994530365330608
+      },
+      "macd": {
+        "score": 50,
+        "value": 57.85201386310757
+      },
+      "pb": {
+        "score": 40,
+        "value": 8.331250520703158
+      },
+      "pe": {
+        "score": 50,
+        "value": 30.506851
+      },
+      "rsi": {
+        "score": 45,
+        "value": 57.85201386310757
+      },
+      "vix": {
+        "score": 70,
+        "value": 15.130000114440918
+      },
+      "yield10y": {
+        "score": 40,
+        "value": 4.73799991607666
+      }
+    },
+    "multiplier": 0.9,
+    "score": 50,
+    "success": true,
+    "timestamp": "2026-08-22T09:53:43.826484"
+  }
+}
