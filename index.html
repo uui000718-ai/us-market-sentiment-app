@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#081c18">
+  <meta name="description" content="AAII、估值、NAAIM、VIX 与 QQQ RSI 纳指主动加仓指标">
+  <meta property="og:title" content="Market Pulse｜纳指主动加仓指标">
+  <meta property="og:description" content="六项市场指标，一张每日决策面板。">
+  <meta property="og:image" content="https://uui000718-ai.github.io/us-market-sentiment-app/og.png">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icons/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css?v=20260820-3">
+  <title>Market Pulse｜纳指主动加仓指标</title>
+</head>
+<body id="top">
+  <main class="app-shell">
+    <header class="topbar">
+      <div class="brand-lockup">
+        <div class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 40 40" role="img">
+            <path class="chart-grid" d="M7 31H33M7 31V8" />
+            <path class="chart-line" d="M8 27L14 21L19 24L25 14L31 10" />
+            <path class="chart-arrow" d="M26 10H31V15" />
+          </svg>
+        </div>
+        <h1>MARKET PULSE</h1>
+      </div>
+      <button class="refresh-button" id="refreshButton" aria-label="刷新数据">↻</button>
+    </header>
+
+    <div class="mode-banner cached is-hidden" id="modeBanner"><span id="modeLabel">离线缓存</span><p id="modeText"></p></div>
+    <div class="error-panel is-hidden" id="errorPanel"></div>
+
+    <section class="active-module" id="active-allocation" aria-label="纳指主动加仓指标">
+      <div class="dca-terminal-head">
+        <div><p class="section-kicker">NASDAQ-100 ACTIVE ALLOCATION</p><h2>纳指主动加仓指标</h2></div>
+        <span class="source-chip">自有指标</span>
+      </div>
+      <div class="hero-card">
+        <div class="hero-copy">
+          <p class="section-kicker" id="marketDate">等待数据</p>
+          <h2 id="recommendation">同步中</h2>
+          <p class="hero-description">五项指标加权决策</p>
+          <div class="decision-row"><span class="neutral" id="decisionScore">--</span><small>买入决策分</small></div>
+        </div>
+        <div class="score-gauge" id="scoreGauge"><div class="gauge-inner"><strong id="score">--</strong><span>/ 100</span></div></div>
+        <div class="hero-footer"><span id="sentimentLabel">市场情绪温度 --</span><span id="generatedAt">等待更新</span></div>
+      </div>
+    </section>
+
+    <section class="section-block dca-module" id="nasdaq-dca">
+      <div class="dca-terminal-head">
+        <div><p class="section-kicker">NASDAQ-100 DCA COMPUTER</p><h2>纳指定投评分</h2></div>
+        <span class="source-chip">第三方参考</span>
+      </div>
+      <div class="dca-score-panel">
+        <div class="dca-score-main">
+          <span>DCA SCORE</span>
+          <strong id="dcaScore">--</strong>
+          <small>/ 100</small>
+          <p id="dcaEvent">等待数据</p>
+        </div>
+        <div class="dca-multiplier">
+          <span>INVEST MULTIPLIER</span>
+          <strong id="dcaMultiplier">--x</strong>
+          <small>建议定投倍数</small>
+        </div>
+      </div>
+      <p class="dca-advice" id="dcaAdvice">正在读取第三方评分...</p>
+      <div class="dca-market-strip" id="dcaMarketStrip"></div>
+      <div class="dca-dimension-head"><div><p class="section-kicker">12 DIMENSION ANALYSIS</p><h3>12维度评分详情</h3></div><span id="dcaUpdated">等待更新</span></div>
+      <div class="dca-dimension-grid" id="dcaDimensions"><p class="empty-state">正在载入12维度数据...</p></div>
+      <p class="dca-source-note">数据源自 btcdca.me。</p>
+    </section>
+
+    <section class="section-block premium-module" id="etf-premium">
+      <div class="section-heading">
+        <div><p class="section-kicker">NASDAQ ETF PREMIUM</p><h2>纳指ETF溢价查询</h2></div>
+        <span class="count-chip">13只场内ETF</span>
+      </div>
+      <div class="premium-query-card">
+        <label for="premiumFundSelect">切换基金</label>
+        <div class="premium-query-row">
+          <select id="premiumFundSelect" aria-label="选择一只纳指ETF">
+            <option value="">正在载入基金列表...</option>
+          </select>
+        </div>
+        <p class="premium-updated" id="premiumUpdated">等待近120个交易日溢价数据</p>
+      </div>
+      <div class="premium-result is-hidden" id="premiumResult">
+        <div class="premium-result-head">
+          <div><span id="premiumFundCode">------</span><h3 id="premiumFundName">等待查询</h3></div>
+          <span class="premium-level" id="premiumLevel">--</span>
+        </div>
+        <div class="premium-stats">
+          <div><span>当前溢价率</span><strong id="premiumCurrent">--</strong><small id="premiumQuoteDate">行情日期 --</small></div>
+          <div><span>近120个交易日百分位</span><strong id="premiumPercentile">--</strong><small id="premiumSampleCount">有效样本 --</small></div>
+        </div>
+        <div class="premium-chart-layout">
+          <div class="premium-donut" id="premiumDonut" role="img" aria-label="近120个交易日溢价率分布">
+            <div><strong id="premiumDays">--</strong><span>有效交易日</span></div>
+          </div>
+          <div class="premium-legend" id="premiumLegend"></div>
+        </div>
+        <p class="premium-method">每只基金按照自身近120个交易日的溢价区间独立分档；每日收盘后记录，超过120条自动删除最早记录。</p>
+      </div>
+      <div class="premium-error is-hidden" id="premiumError"></div>
+    </section>
+
+    <section class="section-block" id="indicators">
+      <div class="section-heading"><div><p class="section-kicker">SIX SIGNALS</p><h2>六项核心指标</h2></div><span class="count-chip" id="indicatorCount">0/6 已同步</span></div>
+      <div class="indicator-list" id="indicatorList"></div>
+    </section>
+
+    <section class="section-block insight-card" id="decision">
+      <div class="section-heading"><div><p class="section-kicker">WHY THIS CALL</p><h2>本次判断依据</h2></div></div>
+      <div class="trigger-list" id="triggerList"></div>
+      <p class="weights-note" id="decisionWeights">AAII 20% · 预估市盈率 10% · NAAIM 20% · VIX 25% · QQQ RSI 25%</p>
+    </section>
+
+    <section class="section-block trend-card" id="trend">
+      <div class="section-heading compact"><div><p class="section-kicker">52-WEEK POSITION</p><h2>距离52周高点</h2></div><strong id="ndxDate">等待更新</strong></div>
+      <div id="ndxPosition"></div>
+    </section>
+
+    <footer><p>每日数据由 GitHub Actions 更新 · 无需登录</p><p>规则信号仅供信息参考，不构成投资建议。</p></footer>
+    <nav class="bottom-nav" aria-label="应用导航"><a href="#top" class="active"><span>●</span>今日</a><a href="#indicators"><span>▦</span>指标</a><a href="#nasdaq-dca"><span>◎</span>定投</a><a href="#etf-premium"><span>◔</span>溢价</a><a href="#trend"><span>▥</span>位置</a></nav>
+  </main>
+  <script src="./app.js?v=20260820-4" defer></script>
+</body>
+</html>

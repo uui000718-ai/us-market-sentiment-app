@@ -1,0 +1,110 @@
+{
+  "schema_version": 1,
+  "fetched_at": "2026-09-05T04:37:12+00:00",
+  "source": {
+    "homepage": "https://www.btcdca.me/nasdaq/",
+    "top_score": "https://www.btcdca.me/nasdaq/api/score",
+    "dimensions": "https://www.btcdca.me/nasdaq/api/score-12d"
+  },
+  "top": {
+    "advice": "🟡 标准区-标准定投",
+    "eventType": "🟡 标准区",
+    "indicators": {
+      "macro": {
+        "dxy": 99.16,
+        "score": 72.55399646759034,
+        "vix": 14.53,
+        "yield10y": 4.78
+      },
+      "sentiment": {
+        "classification": "Greed",
+        "fearGreed": 73,
+        "score": 35
+      },
+      "technical": {
+        "ma200Ratio": 1.09,
+        "ma50Ratio": 1.0107787835260713,
+        "rsi": 42.11227116607146,
+        "score": 67
+      },
+      "valuation": {
+        "pb": 8.61,
+        "pe": 29.3,
+        "peg": 1.5,
+        "roe": 25.0,
+        "score": 42.31055446010845
+      }
+    },
+    "indicatorsChanged": true,
+    "multiplier": 1.0,
+    "priceChange": 0.21,
+    "qqqPrice": 29544.150390625,
+    "scoreChange": 0,
+    "status": "标准区-标准定投",
+    "timestamp": 1788583030149,
+    "totalScore": 54,
+    "weights": {
+      "macro": 20,
+      "sentiment": 10,
+      "technical": 25,
+      "valuation": 45
+    },
+    "yesterdayScore": 54
+  },
+  "twelve": {
+    "dimensions": {
+      "aaii": {
+        "score": 60,
+        "value": 35.0
+      },
+      "bollinger": {
+        "score": 50,
+        "value": 50
+      },
+      "dxy": {
+        "score": 60,
+        "value": 99.16000366210938
+      },
+      "fearGreed": {
+        "score": 25,
+        "value": 73
+      },
+      "ma200": {
+        "score": 70,
+        "value": 1.0930339084848337
+      },
+      "ma50": {
+        "score": 65,
+        "value": 1.0107787835260713
+      },
+      "macd": {
+        "score": 50,
+        "value": 42.11227116607146
+      },
+      "pb": {
+        "score": 40,
+        "value": 8.606592649969876
+      },
+      "pe": {
+        "score": 65,
+        "value": 29.303808
+      },
+      "rsi": {
+        "score": 55,
+        "value": 42.11227116607146
+      },
+      "vix": {
+        "score": 70,
+        "value": 14.529999732971191
+      },
+      "yield10y": {
+        "score": 40,
+        "value": 4.783999919891357
+      }
+    },
+    "multiplier": 1.0,
+    "score": 54,
+    "success": true,
+    "timestamp": "2026-09-05T12:37:12.723032"
+  }
+}
