@@ -40,6 +40,8 @@ DECISION_WEIGHTS = {
     "vix": 25,
     "qqq_rsi": 25,
 }
+BUY_SIGNAL_WINDOW_DAYS = 180
+BUY_RECOMMENDATIONS = {"建议买入", "强烈买入"}
 
 
 def load_dotenv(path: Path = ROOT / ".env") -> None:
@@ -859,7 +861,7 @@ def collect(demo: bool = False) -> dict[str, Any]:
     decision = build_decision(source_data, histories, qqq_rsis)
     reminder = naaim_update_reminder(naaim)
     return {
-        "schema_version": 5,
+        "schema_version": 6,
         "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "market_date": max(market_dates) if market_dates else None,
         "score": score,
@@ -881,10 +883,93 @@ def data_dir() -> Path:
     return configured if configured.is_absolute() else ROOT / configured
 
 
+def buy_signal_history_path() -> Path:
+    configured_value = os.getenv("BUY_SIGNAL_HISTORY_PATH", "").strip()
+    if not configured_value:
+        return data_dir() / "buy-signal-history.json"
+    configured = Path(configured_value)
+    return configured if configured.is_absolute() else ROOT / configured
+
+
+def update_buy_signal_history(
+    report: dict[str, Any],
+    path: Path | None = None,
+    window_days: int = BUY_SIGNAL_WINDOW_DAYS,
+) -> list[dict[str, Any]]:
+    """保存每日最终状态，并返回近180天内由非买入切换为买入的时点。"""
+    target = path or buy_signal_history_path()
+    try:
+        stored = json.loads(target.read_text(encoding="utf-8")) if target.exists() else {}
+    except (OSError, json.JSONDecodeError):
+        stored = {}
+    records = [item for item in stored.get("records", []) if isinstance(item, dict)]
+
+    market_date = str(report.get("market_date") or "")[:10]
+    try:
+        report_date = datetime.strptime(market_date, "%Y-%m-%d").date()
+    except ValueError:
+        return []
+
+    decision = report.get("decision") or {}
+    recommendation = str(decision.get("recommendation") or "数据不足")
+    existing = next((item for item in records if str(item.get("market_date")) == market_date), None)
+    record = {
+        "market_date": market_date,
+        "recorded_at": str(existing.get("recorded_at")) if existing else str(report.get("generated_at") or ""),
+        "recommendation": recommendation,
+        "decision_score": decision.get("score"),
+        "is_buy": recommendation in BUY_RECOMMENDATIONS,
+        "buy_reasons": [
+            str(item.get("reason"))
+            for item in decision.get("triggers", [])
+            if item.get("direction") == "buy" and item.get("reason")
+        ],
+    }
+    records = [item for item in records if str(item.get("market_date")) != market_date]
+    records.append(record)
+
+    cutoff = report_date - timedelta(days=window_days - 1)
+    filtered: list[dict[str, Any]] = []
+    for item in records:
+        try:
+            item_date = datetime.strptime(str(item.get("market_date")), "%Y-%m-%d").date()
+        except ValueError:
+            continue
+        if cutoff <= item_date <= report_date:
+            filtered.append(item)
+    filtered.sort(key=lambda item: str(item["market_date"]))
+
+    events: list[dict[str, Any]] = []
+    previous_buy = False
+    for item in filtered:
+        current_buy = bool(item.get("is_buy"))
+        if current_buy and not previous_buy:
+            events.append({
+                "market_date": item["market_date"],
+                "recorded_at": item.get("recorded_at", ""),
+                "recommendation": item.get("recommendation", "建议买入"),
+                "decision_score": item.get("decision_score"),
+                "buy_reasons": item.get("buy_reasons", []),
+            })
+        previous_buy = current_buy
+
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_text(
+        json.dumps({
+            "schema_version": 1,
+            "window_days": window_days,
+            "records": filtered,
+        }, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+    return events
+
+
 def save_report(report: dict[str, Any]) -> Path:
     folder = data_dir()
     history = folder / "history"
     history.mkdir(parents=True, exist_ok=True)
+    report["buy_signal_history"] = update_buy_signal_history(report)
     latest = folder / "latest.json"
     body = json.dumps(report, ensure_ascii=False, indent=2)
     latest.write_text(body, encoding="utf-8")

@@ -2,6 +2,7 @@
 data/*
 !data/naaim_manual.json
 !data/etf-premium-history.json
+!data/buy-signal-history.json
 __pycache__/
 *.py[cod]
 .DS_Store

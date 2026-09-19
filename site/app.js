@@ -25,6 +25,22 @@ function indicatorState(item) {
   return ["已同步", "ok"];
 }
 
+function renderBuySignalHistory(report) {
+  const list = document.getElementById("buyHistoryList");
+  const count = document.getElementById("buyHistoryCount");
+  if (!list || !count) return;
+  const events = Array.isArray(report.buy_signal_history) ? [...report.buy_signal_history].reverse() : [];
+  count.textContent = events.length ? `近180天 · ${events.length}次` : "近180天";
+  list.innerHTML = events.length ? events.map((event) => {
+    const score = event.decision_score === null || event.decision_score === undefined ? NaN : Number(event.decision_score);
+    const scoreText = Number.isFinite(score) ? `${score > 0 ? "+" : ""}${score.toFixed(1)}分` : "分数不可用";
+    const reasons = Array.isArray(event.buy_reasons) && event.buy_reasons.length
+      ? event.buy_reasons.map((reason) => `<li>${escapeHtml(reason)}</li>`).join("")
+      : "<li>当日综合决策达到买入阈值</li>";
+    return `<article class="signal-history-item"><div class="signal-history-date"><span>美东</span><strong>${escapeHtml(event.market_date || "日期未知")}</strong><small>收盘后</small></div><div class="signal-history-content"><div><strong>${escapeHtml(event.recommendation || "建议买入")}</strong><span>${scoreText}</span></div><ul>${reasons}</ul></div></article>`;
+  }).join("") : '<p class="empty-state">近180天尚未记录到新的买入信号。记录将从本功能上线后开始累计。</p>';
+}
+
 function render(report, mode = "live") {
   const score = Number(report.score ?? 0);
   document.getElementById("score").textContent = report.score ?? "--";
@@ -37,6 +53,7 @@ function render(report, mode = "live") {
   document.getElementById("marketDate").textContent = `美东 ${report.market_date || "—"} 收盘后`;
   document.getElementById("sentimentLabel").textContent = `市场情绪温度 ${report.label || "--"}`;
   document.getElementById("generatedAt").textContent = `北京 ${dateTime(report.generated_at)}`;
+  renderBuySignalHistory(report);
 
   const indicators = Array.isArray(report.indicators) ? report.indicators : [];
   document.getElementById("indicatorCount").textContent = `${indicators.filter((x) => x.score !== null).length}/6 已同步`;

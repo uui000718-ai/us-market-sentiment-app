@@ -10,7 +10,7 @@
   <meta property="og:image" content="https://uui000718-ai.github.io/us-market-sentiment-app/og.png">
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" href="./icons/icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="./styles.css?v=20260820-3">
+  <link rel="stylesheet" href="./styles.css?v=20260919-1">
   <title>Market Pulse｜纳指主动加仓指标</title>
 </head>
 <body id="top">
@@ -124,9 +124,18 @@
       <div id="ndxPosition"></div>
     </section>
 
+    <section class="section-block signal-history-card" id="buy-history">
+      <div class="section-heading compact">
+        <div><p class="section-kicker">BUY SIGNAL HISTORY</p><h2>主动加仓信号记录</h2></div>
+        <span class="count-chip" id="buyHistoryCount">近180天</span>
+      </div>
+      <p class="signal-history-note">仅记录自有指标从非买入切换为“建议买入”或“强烈买入”的首次触发日；连续买入不重复计算。</p>
+      <div class="signal-history-list" id="buyHistoryList"><p class="empty-state">正在读取买入信号记录...</p></div>
+    </section>
+
     <footer><p>每日数据由 GitHub Actions 更新 · 无需登录</p><p>规则信号仅供信息参考，不构成投资建议。</p></footer>
     <nav class="bottom-nav" aria-label="应用导航"><a href="#top" class="active"><span>●</span>今日</a><a href="#indicators"><span>▦</span>指标</a><a href="#nasdaq-dca"><span>◎</span>定投</a><a href="#etf-premium"><span>◔</span>溢价</a><a href="#trend"><span>▥</span>位置</a></nav>
   </main>
-  <script src="./app.js?v=20260820-4" defer></script>
+  <script src="./app.js?v=20260919-1" defer></script>
 </body>
 </html>

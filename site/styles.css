@@ -162,7 +162,7 @@ button { font: inherit; }
 .indicator-value { margin: 8px 0 5px; font-size: 15px; font-weight: 850; line-height: 1.35; }
 .indicator-detail { margin: 0; color: var(--muted); font-size: 11px; line-height: 1.55; }
 
-.insight-card, .trend-card { padding: 20px; border: 1px solid var(--line); border-radius: 24px; background: var(--card); }
+.insight-card, .trend-card, .signal-history-card { padding: 20px; border: 1px solid var(--line); border-radius: 24px; background: var(--card); }
 .trigger-list { display: grid; gap: 9px; }
 .trigger-item { display: grid; grid-template-columns: 30px minmax(0,1fr); align-items: center; gap: 10px; padding: 11px; border-radius: 14px; background: #f3f3ec; }
 .trigger-item span { width: 30px; height: 30px; display: grid; place-items: center; border-radius: 10px; color: white; font-size: 11px; font-weight: 900; }
@@ -180,6 +180,17 @@ button { font: inherit; }
 .high-position-meter { position: relative; height: 14px; overflow: visible; border-radius: 999px; background: #e4e7df; box-shadow: inset 0 1px 2px rgba(9,35,30,.08); }
 .high-position-fill { height: 100%; border-radius: inherit; background: linear-gradient(90deg, #92d7bb, var(--jade)); }
 .high-position-marker { position: absolute; top: 50%; width: 23px; height: 23px; border: 4px solid var(--card); border-radius: 50%; background: var(--lime); box-shadow: 0 4px 13px rgba(9,35,30,.22); transform: translate(-50%, -50%); }
+.signal-history-note { margin: -2px 0 15px; color: var(--muted); font-size: 10px; line-height: 1.55; }
+.signal-history-list { display: grid; gap: 10px; }
+.signal-history-item { display: grid; grid-template-columns: 92px minmax(0,1fr); overflow: hidden; border: 1px solid var(--line); border-radius: 17px; background: #f7f6ef; }
+.signal-history-date { display: flex; flex-direction: column; justify-content: center; padding: 14px; color: #e8f2ed; background: var(--ink); }
+.signal-history-date span, .signal-history-date small { color: #91a49e; font-size: 8px; font-weight: 800; }
+.signal-history-date strong { margin: 4px 0; color: var(--lime); font-size: 12px; line-height: 1.25; }
+.signal-history-content { padding: 13px 14px; }
+.signal-history-content > div { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.signal-history-content > div strong { color: var(--jade-dark); font-size: 13px; }
+.signal-history-content > div span { flex: 0 0 auto; padding: 4px 7px; border-radius: 999px; color: var(--jade-dark); background: #dff2e8; font-size: 9px; font-weight: 850; }
+.signal-history-content ul { margin: 8px 0 0; padding-left: 15px; color: var(--muted); font-size: 10px; line-height: 1.5; }
 footer { padding: 28px 5px 5px; color: var(--muted); text-align: center; font-size: 10px; line-height: 1.5; }
 footer p { margin: 4px 0; }
 

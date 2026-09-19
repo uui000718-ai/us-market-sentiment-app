@@ -33,22 +33,23 @@ jobs:
       - name: 抓取最新情绪数据
         env:
           DATA_DIR: site/data
+          BUY_SIGNAL_HISTORY_PATH: data/buy-signal-history.json
           NDX_PE_PERCENTILE_YEARS: "10"
         run: python app.py
       - name: 获取第三方纳指12维度评分
         run: python scripts/fetch_btcdca.py
       - name: 获取13只纳指ETF近120个交易日溢价数据
         run: python scripts/fetch_etf_premiums.py
-      - name: 保存每日ETF溢价历史
+      - name: 保存每日历史记录
         shell: bash
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -- data/etf-premium-history.json
+          git add -- data/etf-premium-history.json data/buy-signal-history.json
           if git diff --cached --quiet; then
             echo "今日溢价历史没有变化"
           else
-            git commit -m "chore: record daily ETF premiums [skip ci]"
+            git commit -m "chore: record daily histories [skip ci]"
             git push origin HEAD:main
           fi
       - name: 发布到 gh-pages 分支

@@ -43,6 +43,31 @@ class SentimentTests(unittest.TestCase):
             path = app.save_report(app.collect(demo=True))
             self.assertEqual(path, Path(folder) / "latest.json")
             self.assertTrue(path.exists())
+            self.assertIn("buy_signal_history", json.loads(path.read_text(encoding="utf-8")))
+
+    def test_buy_signal_history_records_only_transitions_within_180_days(self):
+        with tempfile.TemporaryDirectory() as folder:
+            path = Path(folder) / "signals.json"
+
+            def report(day, recommendation, score):
+                return {
+                    "market_date": day,
+                    "generated_at": f"{day}T12:00:00+00:00",
+                    "decision": {
+                        "recommendation": recommendation,
+                        "score": score,
+                        "triggers": [{"direction": "buy", "reason": "测试买入原因"}] if "买入" in recommendation else [],
+                    },
+                }
+
+            app.update_buy_signal_history(report("2025-12-01", "建议买入", 25), path)
+            app.update_buy_signal_history(report("2026-06-01", "观望", 0), path)
+            app.update_buy_signal_history(report("2026-06-02", "建议买入", 30), path)
+            events = app.update_buy_signal_history(report("2026-06-03", "强烈买入", 55), path)
+            self.assertEqual([item["market_date"] for item in events], ["2026-06-02"])
+            stored = json.loads(path.read_text(encoding="utf-8"))
+            self.assertEqual(stored["window_days"], 180)
+            self.assertNotIn("2025-12-01", [item["market_date"] for item in stored["records"]])
 
     def test_serverchan_payload_and_response(self):
         response = io.BytesIO(b'{"code":0,"message":"ok"}')
