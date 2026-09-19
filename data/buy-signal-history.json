@@ -1,5 +1,17 @@
 {
   "schema_version": 1,
   "window_days": 180,
-  "records": []
+  "records": [
+    {
+      "market_date": "2026-09-18",
+      "recorded_at": "2026-09-19T11:33:30+00:00",
+      "recommendation": "建议买入",
+      "decision_score": 37.5,
+      "is_buy": true,
+      "buy_reasons": [
+        "AAII看跌 53.3% > 45%（强买入）",
+        "纳指100预估市盈率 22.99x < 23x（强买入）"
+      ]
+    }
+  ]
 }
