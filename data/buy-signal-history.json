@@ -17,11 +17,11 @@
       "market_date": "2026-09-21",
       "recorded_at": "2026-09-21T14:18:35+00:00",
       "recommendation": "建议买入",
-      "decision_score": 37.5,
+      "decision_score": 31.2,
       "is_buy": true,
       "buy_reasons": [
         "AAII看跌 53.3% > 45%（强买入）",
-        "纳指100预估市盈率 22.99x < 23x（强买入）"
+        "纳指100预估市盈率 23.57x < 24x"
       ]
     }
   ]
