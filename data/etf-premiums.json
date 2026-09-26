@@ -1,0 +1,553 @@
+{
+  "schema_version": 1,
+  "fetched_at": "2026-09-26T05:08:18+00:00",
+  "window": {
+    "trading_days": 120,
+    "from": "2026-04-02",
+    "to": "2026-09-23"
+  },
+  "methodology": {
+    "current": "实时场内价格 / 估算净值基准 - 1",
+    "history": "每日收盘后记录场内价格与估算净值；历史接口补齐后按官方单位净值校正",
+    "percentile": "历史样本中溢价率小于等于当前溢价率的比例"
+  },
+  "source": {
+    "homepage": "https://freebacktrack.tech/index.html",
+    "api": "https://api.freebacktrack.tech"
+  },
+  "funds": [
+    {
+      "code": "159501",
+      "name": "纳指ETF嘉实",
+      "current": {
+        "price": 2.212,
+        "nav_base": null,
+        "premium": null,
+        "quote_date": "2026-09-24",
+        "nav_date": ""
+      },
+      "sample_count": 120,
+      "percentile": null,
+      "distribution": [
+        {
+          "key": "discount",
+          "label": "< 5%",
+          "count": 32
+        },
+        {
+          "key": "low",
+          "label": "5%–10%",
+          "count": 32
+        },
+        {
+          "key": "medium",
+          "label": "10%–15%",
+          "count": 55
+        },
+        {
+          "key": "high",
+          "label": "15%–20%",
+          "count": 1
+        },
+        {
+          "key": "extreme",
+          "label": "≥ 20%",
+          "count": 0
+        }
+      ],
+      "error": ""
+    },
+    {
+      "code": "159696",
+      "name": "纳指ETF易方达",
+      "current": {
+        "price": 2.099,
+        "nav_base": null,
+        "premium": null,
+        "quote_date": "2026-09-24",
+        "nav_date": ""
+      },
+      "sample_count": 120,
+      "percentile": null,
+      "distribution": [
+        {
+          "key": "discount",
+          "label": "< 5%",
+          "count": 34
+        },
+        {
+          "key": "low",
+          "label": "5%–10%",
+          "count": 64
+        },
+        {
+          "key": "medium",
+          "label": "10%–15%",
+          "count": 22
+        },
+        {
+          "key": "high",
+          "label": "15%–20%",
+          "count": 0
+        },
+        {
+          "key": "extreme",
+          "label": "≥ 20%",
+          "count": 0
+        }
+      ],
+      "error": ""
+    },
+    {
+      "code": "513870",
+      "name": "纳指ETF富国",
+      "current": {
+        "price": 2.129,
+        "nav_base": null,
+        "premium": null,
+        "quote_date": "2026-09-24",
+        "nav_date": ""
+      },
+      "sample_count": 120,
+      "percentile": null,
+      "distribution": [
+        {
+          "key": "discount",
+          "label": "< 5%",
+          "count": 36
+        },
+        {
+          "key": "low",
+          "label": "5%–10%",
+          "count": 77
+        },
+        {
+          "key": "medium",
+          "label": "10%–15%",
+          "count": 7
+        },
+        {
+          "key": "high",
+          "label": "15%–20%",
+          "count": 0
+        },
+        {
+          "key": "extreme",
+          "label": "≥ 20%",
+          "count": 0
+        }
+      ],
+      "error": ""
+    },
+    {
+      "code": "159632",
+      "name": "纳斯达克ETF华安",
+      "current": {
+        "price": 2.543,
+        "nav_base": null,
+        "premium": null,
+        "quote_date": "2026-09-24",
+        "nav_date": ""
+      },
+      "sample_count": 120,
+      "percentile": null,
+      "distribution": [
+        {
+          "key": "discount",
+          "label": "< 5%",
+          "count": 39
+        },
+        {
+          "key": "low",
+          "label": "5%–10%",
+          "count": 77
+        },
+        {
+          "key": "medium",
+          "label": "10%–15%",
+          "count": 4
+        },
+        {
+          "key": "high",
+          "label": "15%–20%",
+          "count": 0
+        },
+        {
+          "key": "extreme",
+          "label": "≥ 20%",
+          "count": 0
+        }
+      ],
+      "error": ""
+    },
+    {
+      "code": "159659",
+      "name": "纳斯达克100ETF招商",
+      "current": {
+        "price": 2.423,
+        "nav_base": null,
+        "premium": null,
+        "quote_date": "2026-09-24",
+        "nav_date": ""
+      },
+      "sample_count": 120,
+      "percentile": null,
+      "distribution": [
+        {
+          "key": "discount",
+          "label": "< 5%",
+          "count": 39
+        },
+        {
+          "key": "low",
+          "label": "5%–10%",
+          "count": 72
+        },
+        {
+          "key": "medium",
+          "label": "10%–15%",
+          "count": 9
+        },
+        {
+          "key": "high",
+          "label": "15%–20%",
+          "count": 0
+        },
+        {
+          "key": "extreme",
+          "label": "≥ 20%",
+          "count": 0
+        }
+      ],
+      "error": ""
+    },
+    {
+      "code": "159509",
+      "name": "纳指科技ETF景顺",
+      "current": {
+        "price": 3.073,
+        "nav_base": null,
+        "premium": null,
+        "quote_date": "2026-09-24",
+        "nav_date": ""
+      },
+      "sample_count": 120,
+      "percentile": null,
+      "distribution": [
+        {
+          "key": "discount",
+          "label": "< 15%",
+          "count": 11
+        },
+        {
+          "key": "low",
+          "label": "15%–20%",
+          "count": 59
+        },
+        {
+          "key": "medium",
+          "label": "20%–25%",
+          "count": 39
+        },
+        {
+          "key": "high",
+          "label": "25%–30%",
+          "count": 10
+        },
+        {
+          "key": "extreme",
+          "label": "≥ 30%",
+          "count": 1
+        }
+      ],
+      "error": ""
+    },
+    {
+      "code": "513100",
+      "name": "纳指ETF国泰",
+      "current": {
+        "price": 2.312,
+        "nav_base": null,
+        "premium": null,
+        "quote_date": "2026-09-24",
+        "nav_date": ""
+      },
+      "sample_count": 120,
+      "percentile": null,
+      "distribution": [
+        {
+          "key": "discount",
+          "label": "< 5%",
+          "count": 25
+        },
+        {
+          "key": "low",
+          "label": "5%–10%",
+          "count": 42
+        },
+        {
+          "key": "medium",
+          "label": "10%–15%",
+          "count": 53
+        },
+        {
+          "key": "high",
+          "label": "15%–20%",
+          "count": 0
+        },
+        {
+          "key": "extreme",
+          "label": "≥ 20%",
+          "count": 0
+        }
+      ],
+      "error": ""
+    },
+    {
+      "code": "159941",
+      "name": "纳指ETF广发",
+      "current": {
+        "price": 1.707,
+        "nav_base": null,
+        "premium": null,
+        "quote_date": "2026-09-24",
+        "nav_date": ""
+      },
+      "sample_count": 120,
+      "percentile": null,
+      "distribution": [
+        {
+          "key": "discount",
+          "label": "< 5%",
+          "count": 33
+        },
+        {
+          "key": "low",
+          "label": "5%–10%",
+          "count": 46
+        },
+        {
+          "key": "medium",
+          "label": "10%–15%",
+          "count": 41
+        },
+        {
+          "key": "high",
+          "label": "15%–20%",
+          "count": 0
+        },
+        {
+          "key": "extreme",
+          "label": "≥ 20%",
+          "count": 0
+        }
+      ],
+      "error": ""
+    },
+    {
+      "code": "513300",
+      "name": "纳斯达克ETF华夏",
+      "current": {
+        "price": 2.786,
+        "nav_base": null,
+        "premium": null,
+        "quote_date": "2026-09-24",
+        "nav_date": ""
+      },
+      "sample_count": 120,
+      "percentile": null,
+      "distribution": [
+        {
+          "key": "discount",
+          "label": "< 5%",
+          "count": 37
+        },
+        {
+          "key": "low",
+          "label": "5%–10%",
+          "count": 74
+        },
+        {
+          "key": "medium",
+          "label": "10%–15%",
+          "count": 9
+        },
+        {
+          "key": "high",
+          "label": "15%–20%",
+          "count": 0
+        },
+        {
+          "key": "extreme",
+          "label": "≥ 20%",
+          "count": 0
+        }
+      ],
+      "error": ""
+    },
+    {
+      "code": "159660",
+      "name": "纳指ETF汇添富",
+      "current": {
+        "price": 2.444,
+        "nav_base": null,
+        "premium": null,
+        "quote_date": "2026-09-24",
+        "nav_date": ""
+      },
+      "sample_count": 120,
+      "percentile": null,
+      "distribution": [
+        {
+          "key": "discount",
+          "label": "< 2.5%",
+          "count": 14
+        },
+        {
+          "key": "low",
+          "label": "2.5%–5%",
+          "count": 25
+        },
+        {
+          "key": "medium",
+          "label": "5%–7.5%",
+          "count": 26
+        },
+        {
+          "key": "high",
+          "label": "7.5%–10%",
+          "count": 50
+        },
+        {
+          "key": "extreme",
+          "label": "≥ 10%",
+          "count": 5
+        }
+      ],
+      "error": ""
+    },
+    {
+      "code": "513390",
+      "name": "纳指100ETF博时",
+      "current": {
+        "price": 2.505,
+        "nav_base": null,
+        "premium": null,
+        "quote_date": "2026-09-24",
+        "nav_date": ""
+      },
+      "sample_count": 120,
+      "percentile": null,
+      "distribution": [
+        {
+          "key": "discount",
+          "label": "< 5%",
+          "count": 37
+        },
+        {
+          "key": "low",
+          "label": "5%–10%",
+          "count": 78
+        },
+        {
+          "key": "medium",
+          "label": "10%–15%",
+          "count": 5
+        },
+        {
+          "key": "high",
+          "label": "15%–20%",
+          "count": 0
+        },
+        {
+          "key": "extreme",
+          "label": "≥ 20%",
+          "count": 0
+        }
+      ],
+      "error": ""
+    },
+    {
+      "code": "159513",
+      "name": "纳斯达克100ETF大成",
+      "current": {
+        "price": 1.857,
+        "nav_base": null,
+        "premium": null,
+        "quote_date": "2026-09-24",
+        "nav_date": ""
+      },
+      "sample_count": 120,
+      "percentile": null,
+      "distribution": [
+        {
+          "key": "discount",
+          "label": "< 5%",
+          "count": 36
+        },
+        {
+          "key": "low",
+          "label": "5%–10%",
+          "count": 80
+        },
+        {
+          "key": "medium",
+          "label": "10%–15%",
+          "count": 4
+        },
+        {
+          "key": "high",
+          "label": "15%–20%",
+          "count": 0
+        },
+        {
+          "key": "extreme",
+          "label": "≥ 20%",
+          "count": 0
+        }
+      ],
+      "error": ""
+    },
+    {
+      "code": "513110",
+      "name": "纳指ETF华泰柏瑞",
+      "current": {
+        "price": 2.562,
+        "nav_base": null,
+        "premium": null,
+        "quote_date": "2026-09-24",
+        "nav_date": ""
+      },
+      "sample_count": 120,
+      "percentile": null,
+      "distribution": [
+        {
+          "key": "discount",
+          "label": "< 5%",
+          "count": 39
+        },
+        {
+          "key": "low",
+          "label": "5%–10%",
+          "count": 77
+        },
+        {
+          "key": "medium",
+          "label": "10%–15%",
+          "count": 4
+        },
+        {
+          "key": "high",
+          "label": "15%–20%",
+          "count": 0
+        },
+        {
+          "key": "extreme",
+          "label": "≥ 20%",
+          "count": 0
+        }
+      ],
+      "error": ""
+    }
+  ]
+}

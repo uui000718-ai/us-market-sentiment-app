@@ -1,0 +1,122 @@
+{
+  "schema_version": 6,
+  "generated_at": "2026-09-26T05:07:14+00:00",
+  "market_date": "2026-09-25",
+  "score": 59.6,
+  "label": "中性",
+  "mode": "live",
+  "available_indicators": 6,
+  "total_indicators": 6,
+  "indicators": [
+    {
+      "name": "aaii",
+      "label": "AAII 投资者情绪",
+      "score": 40.5,
+      "value": "看多 32.7% / 中性 19.2% / 看空 48.1%",
+      "detail": "多空差 -15.4 个百分点；发布日期 2026-09-23",
+      "weight": 20
+    },
+    {
+      "name": "ndx_forward_pe",
+      "label": "纳斯达克100预估市盈率",
+      "score": 47.4,
+      "value": "23.49x / 10年百分位 52.6%",
+      "detail": "10年历史中位数 23.33x；数据日期 2026-09-25",
+      "weight": 20
+    },
+    {
+      "name": "naaim",
+      "label": "NAAIM 主动经理暴露指数",
+      "score": 79.7,
+      "value": "79.70",
+      "detail": "4周均值 85.58；GitHub手动记录；数据日期 2026-07-29；⚠️ 数据距今59天，已超过7天，不参与综合判断",
+      "weight": 0
+    },
+    {
+      "name": "cftc_positioning",
+      "label": "CFTC机构仓位（参考）",
+      "score": 92.5,
+      "value": "净仓位 +49.5% / 3年百分位 92.5%",
+      "detail": "多仓 59.2% / 空仓 9.7%；净仓位4周均值 +44.0%；数据日期 2026-09-22；仅供参考，权重0%，不参与综合评分",
+      "weight": 0
+    },
+    {
+      "name": "vix",
+      "label": "VIX 恐慌指数",
+      "score": 85.7,
+      "value": "14.87",
+      "detail": "行情日期 2026-09-25",
+      "weight": 20
+    },
+    {
+      "name": "qqq_rsi",
+      "label": "QQQ 日线 RSI",
+      "score": 64.9,
+      "value": "RSI1 100.00 / RSI6 74.02 / RSI14 64.94",
+      "detail": "行情日期 2026-09-25；以RSI6触发：<30买入，≤20全仓规则提示",
+      "weight": 20
+    }
+  ],
+  "ndx_52_week": {
+    "latest": 30608.130859375,
+    "high": 30732.400390625,
+    "is_new_high": false,
+    "drawdown_pct": 0.4043599903374575,
+    "sessions": 252,
+    "date": "2026-09-25",
+    "source": "Yahoo Finance ^NDX"
+  },
+  "decision": {
+    "score": 31.2,
+    "recommendation": "建议买入",
+    "full_position_signal": false,
+    "buy_triggers": 2,
+    "sell_triggers": 0,
+    "available_indicators": 4,
+    "total_indicators": 5,
+    "weights": {
+      "aaii": 20,
+      "ndx_forward_pe": 10,
+      "naaim": 20,
+      "vix": 25,
+      "qqq_rsi": 25
+    },
+    "strengths": {
+      "aaii": 2.0,
+      "ndx_forward_pe": 1.0,
+      "naaim": 0.0,
+      "vix": 0.0,
+      "qqq_rsi": 0.0
+    },
+    "triggers": [
+      {
+        "indicator": "aaii",
+        "direction": "buy",
+        "reason": "AAII看跌 48.1% > 45%（强买入）"
+      },
+      {
+        "indicator": "ndx_forward_pe",
+        "direction": "buy",
+        "reason": "纳指100预估市盈率 23.49x < 24x"
+      }
+    ],
+    "suppressed_signals": [
+      "NAAIM数据已59天，超过7天有效期，已停止参与综合判断"
+    ]
+  },
+  "reminders": [],
+  "errors": [],
+  "disclaimer": "以上为用户自定义阈值生成的规则信号，仅供信息参考，不构成投资建议。全仓提示不代表适合个人风险承受能力；各数据源更新频率不同，请结合仓位、估值滞后和最新市场情况独立判断。",
+  "buy_signal_history": [
+    {
+      "market_date": "2026-09-18",
+      "recorded_at": "2026-09-19T11:33:30+00:00",
+      "recommendation": "建议买入",
+      "decision_score": 37.5,
+      "buy_reasons": [
+        "AAII看跌 53.3% > 45%（强买入）",
+        "纳指100预估市盈率 22.99x < 23x（强买入）"
+      ]
+    }
+  ]
+}
