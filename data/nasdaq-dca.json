@@ -1,0 +1,166 @@
+{
+  "schema_version": 1,
+  "fetched_at": "2026-10-17T04:37:21+00:00",
+  "source": {
+    "homepage": "https://www.btcdca.me/nasdaq/",
+    "top_score": "https://www.btcdca.me/nasdaq/api/score",
+    "dimensions": "https://www.btcdca.me/nasdaq/api/score-12d"
+  },
+  "top": {
+    "advice": "🟡 标准区-标准定投",
+    "dataQuality": {
+      "fresh": false,
+      "sources": {
+        "dxy": "Yahoo Finance",
+        "fgi": "CNN Fear&Greed(cache)",
+        "pb": "estimated-from-PE",
+        "pe": "Yahoo Finance",
+        "price": "Yahoo Finance",
+        "technical": "Yahoo Finance",
+        "vix": "Yahoo Finance",
+        "yield10y": "Yahoo Finance"
+      },
+      "staleFields": [
+        "pb",
+        "fgi"
+      ]
+    },
+    "eventType": "🟡 标准区",
+    "indicators": {
+      "macro": {
+        "dxy": 101.84,
+        "score": 60.1,
+        "vix": 19.99,
+        "yield10y": 5.1
+      },
+      "sentiment": {
+        "classification": "Extreme Fear",
+        "fearGreed": 18,
+        "score": 84.0
+      },
+      "technical": {
+        "ma200Ratio": 1.052,
+        "ma50Ratio": 0.977,
+        "rsi": 33.49,
+        "score": 69.7
+      },
+      "valuation": {
+        "detail": {
+          "erp": 16.9,
+          "pb": 46.0,
+          "pe": 50.9,
+          "peg": 50.0,
+          "roe": 95
+        },
+        "erp": -1.42,
+        "pb": 7.0,
+        "pe": 27.18,
+        "peg": 1.5,
+        "roe": 25.0,
+        "score": 41.9
+      }
+    },
+    "indicatorsChanged": true,
+    "lastUpdate": "2026-10-17 12:36:55",
+    "multiplier": 1.16,
+    "priceChange": -2.5,
+    "qqqPrice": 29187.55078125,
+    "riskControl": {
+      "active": false,
+      "flags": []
+    },
+    "scoreChange": 3,
+    "status": "标准区-标准定投",
+    "timestamp": 1792211815187,
+    "totalScore": 61,
+    "weights": {
+      "macro": 20,
+      "sentiment": 20,
+      "technical": 25,
+      "valuation": 35
+    },
+    "yesterdayScore": 58
+  },
+  "twelve": {
+    "dimensions": {
+      "aaii": {
+        "dataType": "pending",
+        "note": "数据源接入中，权重已再分配至VIX/FGI",
+        "score": null,
+        "value": null
+      },
+      "bollinger": {
+        "dataType": "live",
+        "score": 90,
+        "value": -0.24
+      },
+      "dxy": {
+        "dataType": "Yahoo Finance",
+        "score": 44.5,
+        "value": 101.84
+      },
+      "fearGreed": {
+        "dataType": "CNN Fear&Greed(cache)",
+        "score": 84.0,
+        "value": 18
+      },
+      "ma200": {
+        "dataType": "live",
+        "score": 60.6,
+        "value": 1.052
+      },
+      "ma50": {
+        "dataType": "live",
+        "score": 64.4,
+        "value": 0.977
+      },
+      "macd": {
+        "dataType": "live",
+        "score": 74.0,
+        "value": -190.4
+      },
+      "pb": {
+        "dataType": "estimated",
+        "score": 46.0,
+        "value": 7.0
+      },
+      "pe": {
+        "dataType": "Yahoo Finance",
+        "score": 50.9,
+        "value": 27.18
+      },
+      "rsi": {
+        "dataType": "live",
+        "score": 75.8,
+        "value": 33.5
+      },
+      "vix": {
+        "dataType": "Yahoo Finance",
+        "score": 51.5,
+        "value": 19.99
+      },
+      "yield10y": {
+        "dataType": "Yahoo Finance",
+        "score": 23.5,
+        "value": 5.1
+      }
+    },
+    "multiplier": 1.16,
+    "score": 61,
+    "success": true,
+    "timestamp": "2026-10-17T12:35:43.387333",
+    "weights": {
+      "bollinger": 7,
+      "dxy": 6,
+      "fearGreed": 12,
+      "ma200": 8,
+      "ma50": 10,
+      "macd": 10,
+      "pb": 8,
+      "pe": 12,
+      "rsi": 8,
+      "vix": 12,
+      "yield10y": 7
+    }
+  }
+}
