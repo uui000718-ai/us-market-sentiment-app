@@ -211,10 +211,10 @@
       "market_date": "2026-10-16",
       "recorded_at": "2026-10-16T12:31:22+00:00",
       "recommendation": "建议买入",
-      "decision_score": 21.9,
+      "decision_score": 28.1,
       "is_buy": true,
       "buy_reasons": [
-        "纳指100预估市盈率 23.31x < 24x",
+        "纳指100预估市盈率 22.81x < 23x（强买入）",
         "QQQ RSI6 26.06 < 30"
       ]
     }
