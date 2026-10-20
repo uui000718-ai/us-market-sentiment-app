@@ -227,6 +227,16 @@
       "buy_reasons": [
         "纳指100预估市盈率 23.08x < 24x"
       ]
+    },
+    {
+      "market_date": "2026-10-20",
+      "recorded_at": "2026-10-20T12:47:19+00:00",
+      "recommendation": "观望",
+      "decision_score": 6.2,
+      "is_buy": false,
+      "buy_reasons": [
+        "纳指100预估市盈率 23.08x < 24x"
+      ]
     }
   ]
 }
