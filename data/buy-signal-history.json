@@ -237,6 +237,16 @@
       "buy_reasons": [
         "纳指100预估市盈率 22.99x < 23x（强买入）"
       ]
+    },
+    {
+      "market_date": "2026-10-21",
+      "recorded_at": "2026-10-21T12:59:41+00:00",
+      "recommendation": "观望",
+      "decision_score": 12.5,
+      "is_buy": false,
+      "buy_reasons": [
+        "纳指100预估市盈率 22.99x < 23x（强买入）"
+      ]
     }
   ]
 }
