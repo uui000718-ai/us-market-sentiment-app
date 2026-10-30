@@ -314,6 +314,17 @@
       "buy_reasons": [
         "纳指100预估市盈率 22.30x < 23x（强买入）"
       ]
+    },
+    {
+      "market_date": "2026-10-30",
+      "recorded_at": "2026-10-30T14:18:23+00:00",
+      "recommendation": "建议买入",
+      "decision_score": 28.1,
+      "is_buy": true,
+      "buy_reasons": [
+        "纳指100预估市盈率 22.30x < 23x（强买入）",
+        "QQQ RSI6 28.32 < 30"
+      ]
     }
   ]
 }
