@@ -329,11 +329,12 @@
     {
       "market_date": "2026-11-02",
       "recorded_at": "2026-11-02T17:12:20+00:00",
-      "recommendation": "观望",
-      "decision_score": 12.5,
-      "is_buy": false,
+      "recommendation": "建议买入",
+      "decision_score": 28.1,
+      "is_buy": true,
       "buy_reasons": [
-        "纳指100预估市盈率 21.87x < 23x（强买入）"
+        "纳指100预估市盈率 21.62x < 23x（强买入）",
+        "QQQ RSI6 22.60 < 30"
       ]
     }
   ]
