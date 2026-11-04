@@ -1,0 +1,31 @@
+export const demoReport = {
+  schema_version: 5,
+  generated_at: "2026-08-06T00:47:00+00:00",
+  market_date: "2026-08-05",
+  score: 59.2,
+  label: "中性",
+  mode: "preview",
+  available_indicators: 6,
+  total_indicators: 6,
+  indicators: [
+    { name: "aaii", label: "AAII 投资者情绪", score: 41.2, value: "看多 29.6% / 中性 28.1% / 看空 42.3%", detail: "多空差 -12.7 个百分点；发布日期 2026-07-25；⚠️ 数据超过7天，不参与买入提示", weight: 20 },
+    { name: "ndx_forward_pe", label: "纳斯达克100预估市盈率", score: 42.7, value: "23.94x / 10年百分位 57.3%", detail: "10年历史中位数 23.27x；数据日期 2026-08-04", weight: 20 },
+    { name: "naaim", label: "NAAIM 主动经理暴露指数", score: 79.7, value: "79.70", detail: "4周均值 85.58；GitHub手动记录；数据日期 2026-07-29", weight: 20 },
+    { name: "cftc_positioning", label: "CFTC机构仓位（参考）", score: 72.5, value: "净仓位 +47.6% / 3年百分位 72.5%", detail: "多仓 58.4% / 空仓 10.8%；4周均值 +48.3%；数据日期 2026-07-28；权重0%", weight: 0 },
+    { name: "vix", label: "VIX 恐慌指数", score: 74.1, value: "17.17", detail: "行情日期 2026-08-05；数值越高代表隐含波动越大", weight: 20 },
+    { name: "qqq_rsi", label: "QQQ 日线 RSI", score: 58.5, value: "RSI1 100.00 / RSI6 73.29 / RSI14 58.55", detail: "行情日期 2026-08-05；以RSI6触发：<30买入，≤20全仓提示", weight: 20 },
+  ],
+  ndx_52_week: { latest: 29819.9, high: 30660.6, is_new_high: false, drawdown_pct: 2.7419, date: "2026-08-05" },
+  decision: {
+    score: 15.0,
+    recommendation: "观望",
+    triggers: [
+      { indicator: "ndx_forward_pe", direction: "buy", reason: "纳指100预估市盈率 23.94x < 24x" },
+      { indicator: "naaim", direction: "buy", reason: "NAAIM 79.70 < 80" },
+    ],
+    suppressed_signals: ["AAII数据已超过7天有效期，已停止参与买入判断"],
+    weights: { aaii: 20, ndx_forward_pe: 10, naaim: 20, vix: 25, qqq_rsi: 25 },
+  },
+  reminders: [],
+  errors: [],
+};
