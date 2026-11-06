@@ -1,4 +1,4 @@
-import { validReport, validContext } from "./market";
+import { validReport, validContext, validPremiums } from "./market";
 import type { Report } from "./market";
 
 export async function loadStaticReport(): Promise<Report> {
@@ -12,8 +12,8 @@ export async function loadStaticReport(): Promise<Report> {
   return {
     ...main.value, delivery_mode: "live", read_at: new Date().toISOString(),
     dca: dca.status === "fulfilled" && dca.value?.twelve?.dimensions ? dca.value : null,
-    premiums: premiums.status === "fulfilled" && Array.isArray(premiums.value?.funds) ? premiums.value : null,
+    premiums: premiums.status === "fulfilled" && validPremiums(premiums.value) ? premiums.value : null,
     market_context: context.status === "fulfilled" && validContext(context.value) ? context.value : null,
-    module_errors: context.status === "rejected" || !validContext(context.value) ? ["市场环境数据暂不可用"] : [],
+    module_errors: [context.status === "rejected" || !validContext(context.value) ? "市场环境数据暂不可用" : "", premiums.status === "rejected" || !validPremiums(premiums.value) ? "IOPV溢价数据暂不可用，旧净值口径已停用" : ""].filter(Boolean),
   };
 }

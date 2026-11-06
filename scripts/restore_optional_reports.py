@@ -16,6 +16,8 @@ def restore(name):
         payload = json.loads(raw)
         if not isinstance(payload, dict) or not payload.get("fetched_at"):
             raise ValueError("Not a timestamped report")
+        if name == "etf-premiums.json" and (payload.get("schema_version") != 2 or payload.get("basis") != "iopv"):
+            raise ValueError("Legacy mixed NAV/IOPV premiums must not be restored")
         target = ROOT / "site" / "data" / name
         if target.exists():
             current = json.loads(target.read_text(encoding="utf-8"))

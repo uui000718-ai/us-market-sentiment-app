@@ -5,11 +5,11 @@ import { finite, freshness, indicatorDate, indicatorStatus, names, number, recen
 import type { Report } from "./lib/market";
 import { loadStaticReport } from "./lib/load-static";
 import MarketContextPanel from "./components/market-context";
+import EtfPremiums from "./components/etf-premiums";
 
-const CACHE_KEY = "market-pulse-report-v4";
+const CACHE_KEY = "market-pulse-report-v5-iopv";
 const CODES: Record<string, string> = { aaii: "AA", ndx_forward_pe: "PE", naaim: "NA", cftc_positioning: "CF", vix: "VX", qqq_rsi: "RS" };
 const DIMENSIONS = [["pe", "PE估值"], ["pb", "PB估值"], ["macd", "MACD"], ["rsi", "RSI"], ["bollinger", "布林带"], ["ma50", "MA50"], ["ma200", "MA200"], ["vix", "VIX"], ["yield10y", "美债10Y"], ["dxy", "美元指数"], ["fearGreed", "恐惧贪婪"], ["aaii", "AAII"]];
-const COLORS = ["#6aa9c8", "#71c7a6", "#c9f174", "#e5a93f", "#cc5a49"];
 function signed(value: unknown) { return finite(value) ? `${value > 0 ? "+" : ""}${value.toFixed(1)}` : "—"; }
 function cleanDetail(value: string) { return value.replace(/；?(AAII Insights官方周报|VCP Scanner[^；]*|CFTC TFF官方数据|数值越高[^；]*|仅供参考，权重0%，不参与综合评分)/g, ""); }
 
@@ -19,7 +19,6 @@ export default function Home({ staticMode = false }: { staticMode?: boolean }) {
   const [attempted, setAttempted] = useState(false);
   const [message, setMessage] = useState("");
   const [now, setNow] = useState(() => new Date());
-  const [fundCode, setFundCode] = useState("159501");
   const [nav, setNav] = useState("top");
   const inFlight = useRef(false);
   const lastAttempt = useRef(0);
@@ -74,11 +73,6 @@ export default function Home({ staticMode = false }: { staticMode?: boolean }) {
   const cached = report?.delivery_mode === "cached";
   const caution = cached || fresh?.stale || fresh?.intraday;
   const dca = report?.dca;
-  const premiums = report?.premiums;
-  const fund = premiums?.funds.find((x) => x.code === fundCode) || premiums?.funds[0];
-  const total = fund?.distribution.reduce((sum, x) => sum + x.count, 0) || 0;
-  let count = 0;
-  const gradient = fund?.distribution.map((x, i) => { const start = count; count += x.count; return `${COLORS[i % COLORS.length]} ${total ? start / total * 100 : 0}% ${total ? count / total * 100 : 0}%`; }).join(",");
   const unavailable = report?.indicators.filter((x) => x.score === null || x.value === "不可用").length || 0;
 
   return <main className="app-shell" aria-busy={refreshing}>
@@ -118,7 +112,7 @@ export default function Home({ staticMode = false }: { staticMode?: boolean }) {
 
       <section className="section-block dca-module" id="dca"><div className="module-head"><div><p className="section-kicker">NASDAQ-100 DCA</p><h2>纳指定投评分</h2></div><span className="source-chip">第三方参考</span></div>{dca ? <><div className="dca-summary"><div><span>综合评分</span><strong>{number(dca.top.totalScore, 0)}<small>/100</small></strong></div><div><span>建议定投倍数</span><strong className="amber">{number(dca.top.multiplier, 2, "×")}</strong></div></div><p className="dca-advice">{dca.top.advice || "来源暂未给出建议"}</p><p className="dca-meta">北京 {time(dca.fetched_at)} · 数据源自 <a href="https://www.btcdca.me/nasdaq/" target="_blank" rel="noreferrer">btcdca.me ↗</a></p>{dca.top.dataQuality?.fresh === false && <p className="dca-quality">来源提示部分数据存在估算或滞后：{dca.top.dataQuality.staleFields?.join("、") || "请核对来源"}</p>}<details className="dimension-details"><summary>查看12维度数据</summary><div className="dimension-grid">{DIMENSIONS.map(([key, label]) => { const x = dca.twelve.dimensions[key]; const w = dca.twelve.weights?.[key]; return <div className="dimension" key={key}><header><span>{label}</span><small>{finite(w) ? `${w}%` : "未分配"}</small></header><strong>{number(x?.score, 0)}<small> 分</small></strong><p>数值 {number(x?.value, 2)}</p><div className="dimension-bar"><i style={{width:`${finite(x?.score) ? Math.max(0, Math.min(100, x.score)) : 0}%`}}/></div><small>{x?.dataType === "pending" ? "来源尚未接入" : x?.dataType === "estimated" ? "估算值" : "来源数据"}</small></div>; })}</div></details></> : <p className="module-empty">第三方评分暂时无法读取，下次刷新会重试。</p>}</section>
 
-      <section className="section-block" id="premium"><div className="section-heading"><div><p className="section-kicker">NASDAQ ETF PREMIUM</p><h2>纳指ETF溢价查询</h2></div><span className="count-chip">{premiums?.funds.length || "—"}只基金</span></div>{fund ? <div className="premium-result"><label className="fund-selector">选择场内基金<select value={fund.code} onChange={(e) => setFundCode(e.target.value)}>{premiums?.funds.map((x) => <option key={x.code} value={x.code}>{x.code} · {x.name}</option>)}</select></label><div className="premium-stats"><div><span>当前溢价率</span><strong>{number(fund.current.premium, 2, "%")}</strong><small>行情 {fund.current.quote_date || "未知"}</small></div><div><span>近120个交易日百分位</span><strong>{number(fund.percentile, 1, "%")}</strong><small>{finite(fund.percentile) ? `高于或等于${number(fund.percentile, 1)}%的历史样本` : "样本不足"}</small></div></div><div className="premium-chart-layout"><div className="premium-donut" style={{ background: total ? `conic-gradient(${gradient})` : "#344b44" }} role="img" aria-label={`${fund.name}的溢价率分布，共${total}个交易日`}><div><strong>{total}</strong><span>有效交易日</span></div></div><div className="premium-legend">{fund.distribution.map((x, i) => <div key={x.key}><i style={{ background: COLORS[i % COLORS.length] }}/><span>{x.label}</span><b>{x.count}天<small>{number(total ? x.count / total * 100 : null, 1, "%")}</small></b></div>)}</div></div><p className="premium-method">各基金独立分档 · 最近120个交易日滚动统计<br/>净值基准日期 {fund.current.nav_date || "未知"} · 读取于北京 {time(premiums?.fetched_at)}</p>{fund.sample_count < 120 && <p className="premium-method">当前仅有{fund.sample_count}个有效样本，尚未达到120个交易日。</p>}{fund.error && <p className="premium-method">部分历史获取失败，当前保留已有样本。</p>}</div> : <div className="empty-card compact"><p>ETF溢价数据暂时无法读取，请稍后刷新。</p></div>}</section>
+      <EtfPremiums data={report.premiums}/>
 
       <section className="section-block trend-card" id="position"><div className="section-heading"><div><p className="section-kicker">52-WEEK POSITION</p><h2>距离52周高点</h2></div></div>{report.ndx_52_week ? <div className="high-position-card"><span>纳斯达克100 · {report.ndx_52_week.date}</span><strong>{report.ndx_52_week.is_new_high ? `新高 ${number(report.ndx_52_week.latest, 2)}` : `−${number(report.ndx_52_week.drawdown_pct, 2, "%")}`}</strong><p>当前 {number(report.ndx_52_week.latest, 2)} · 52周高点 {number(report.ndx_52_week.high, 2)}</p></div> : <p className="empty-state">行情暂未获取。</p>}</section>
 

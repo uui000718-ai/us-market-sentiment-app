@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { expectedSession, freshness, number, recentEvents, validReport, validContext } from "../app/lib/market.ts";
+import { expectedSession, freshness, number, recentEvents, validReport, validContext, validPremiums } from "../app/lib/market.ts";
 
 test("missing values are never converted to zero", () => {
   assert.equal(number(null), "—");
@@ -38,4 +38,14 @@ test("context rejects corrupt series but preserves explicit missing values", () 
   assert.equal(validContext(report), true);
   assert.equal(validContext({ ...report, items: [] }), false);
   assert.equal(validContext({ ...report, items: [{ ...report.items[0], series: [{ date: "2026-11-05", value: "unknown" }] }] }), false);
+});
+
+test("premium contract rejects legacy mixed NAV history and accepts missing IOPV without inventing zero", () => {
+  const report = { schema_version: 2, basis: "iopv", fetched_at: "2026-11-06T12:00:00Z", funds: [{code: "513870", current: {basis: "iopv", premium: null}, sample_count: 0, percentile: null, distribution: []}] };
+  assert.equal(validPremiums(report), true);
+  assert.equal(validPremiums({...report, schema_version: 1}), false);
+  assert.equal(validPremiums({...report, basis: "nav"}), false);
+  assert.equal(validPremiums({...report, funds: [{...report.funds[0], sample_count: 120}]}), false);
+  assert.equal(validPremiums({...report, funds: [{...report.funds[0], current: {basis: "nav", premium: 9.7}}]}), false);
+  assert.equal(validPremiums({...report, funds: [{...report.funds[0], current: {basis: "iopv", premium: 0}}]}), true);
 });

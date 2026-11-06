@@ -33,10 +33,22 @@ export type Dca = {
   twelve: { dimensions: Record<string, Dimension>; weights?: Record<string, number> };
 };
 export type PremiumFund = {
-  code: string; name: string; current: { premium: number | null; quote_date: string; nav_date: string };
+  code: string; name: string; current: { premium: number | null; price?: number | null; iopv?: number | null; quote_date: string; quote_at?: string; retrieved_at?: string; basis?: string; retained?: boolean; status?: string; source?: string; error?: string };
   sample_count: number; percentile: number | null; distribution: { key: string; label: string; count: number }[]; error?: string;
+  history_from?: string | null; history_to?: string | null; history_status?: string;
 };
-export type Premiums = { fetched_at: string; window: { trading_days: number }; funds: PremiumFund[] };
+export type Premiums = { schema_version: number; basis: string; fetched_at: string; window: { trading_days: number }; funds: PremiumFund[] };
+export function validPremiums(value: unknown): value is Premiums {
+  if (!value || typeof value !== "object") return false;
+  const data = value as Premiums;
+  return data.schema_version === 2 && data.basis === "iopv" && typeof data.fetched_at === "string"
+    && Array.isArray(data.funds) && data.funds.length > 0 && data.funds.every(x => x && typeof x.code === "string"
+      && x.current && x.current.basis === "iopv" && (x.current.premium === null || finite(x.current.premium))
+      && Number.isInteger(x.sample_count) && x.sample_count >= 0 && x.sample_count <= 120
+      && (x.percentile === null || (finite(x.percentile) && x.percentile >= 0 && x.percentile <= 100))
+      && Array.isArray(x.distribution) && x.distribution.every(b => typeof b.label === "string" && Number.isInteger(b.count) && b.count >= 0)
+      && x.distribution.reduce((sum, b) => sum + b.count, 0) === x.sample_count);
+}
 export const weights: Record<string, number> = { aaii: 20, ndx_forward_pe: 10, naaim: 20, vix: 25, qqq_rsi: 25 };
 export const names: Record<string, string> = { aaii: "AAII", ndx_forward_pe: "预估市盈率", naaim: "NAAIM", vix: "VIX", qqq_rsi: "QQQ RSI6" };
 export function finite(value: unknown): value is number { return typeof value === "number" && Number.isFinite(value); }

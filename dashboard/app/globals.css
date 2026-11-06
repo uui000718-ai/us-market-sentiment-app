@@ -112,6 +112,9 @@ footer { padding:25px 0 0; text-align:center; font-size:9px; line-height:1.7; co
 .context-percentile small { grid-column:1/-1; font-size:8px; margin-top:3px; line-height:1.5; }
 .context-provenance { display:flex; flex-direction:column; gap:4px; padding-top:11px; border-top:1px solid #d7dfd2; color:#7d8d7f; font-size:8px; }
 .context-provenance b { color:#526957; font-weight:650; }
+.premium-alert { margin:16px 20px; padding:12px; background:#fff4df; color:#8a561b; border-radius:12px; font-size:11px; line-height:1.7; }
+.premium-method summary { cursor:pointer; color:var(--jade-dark); }
+.premium-method p { line-height:1.8; }
 .context-retained { font-size:9px; color:#8f672c; line-height:1.5; }
 .context-method { margin-top:12px; color:#617664; font-size:9px; line-height:1.7; }
 .context-method summary { color:var(--jade-dark); }

@@ -1,4 +1,4 @@
-import { validReport, validContext } from "../../lib/market";
+import { validReport, validContext, validPremiums } from "../../lib/market";
 
 const BASE = "https://uui000718-ai.github.io/us-market-sentiment-app/data/";
 export const dynamic = "force-dynamic";
@@ -22,8 +22,8 @@ export async function GET() {
   return Response.json({
     ...main.value, delivery_mode: "live", read_at: new Date().toISOString(),
     dca: dca.status === "fulfilled" && dca.value?.top && dca.value?.twelve ? dca.value : null,
-    premiums: premiums.status === "fulfilled" && Array.isArray(premiums.value?.funds) ? premiums.value : null,
+    premiums: premiums.status === "fulfilled" && validPremiums(premiums.value) ? premiums.value : null,
     market_context: context.status === "fulfilled" && validContext(context.value) ? context.value : null,
-    module_errors: [dca.status === "rejected" ? "第三方定投评分读取失败" : "", premiums.status === "rejected" ? "ETF溢价数据读取失败" : "", context.status === "rejected" || !validContext(context.value) ? "市场环境数据暂不可用" : ""].filter(Boolean),
+    module_errors: [dca.status === "rejected" ? "第三方定投评分读取失败" : "", premiums.status === "rejected" || !validPremiums(premiums.value) ? "IOPV溢价数据暂不可用，旧净值口径已停用" : "", context.status === "rejected" || !validContext(context.value) ? "市场环境数据暂不可用" : ""].filter(Boolean),
   }, { headers });
 }
