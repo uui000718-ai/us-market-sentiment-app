@@ -75,6 +75,7 @@ test("optional module failure preserves a valid core report", async () => {
     assert.equal(payload.decision.recommendation, "观望");
     assert.equal(payload.dca, null);
     assert.equal(payload.premiums, null);
-    assert.equal(payload.module_errors.length, 2);
+    assert.equal(payload.market_context, null);
+    assert.equal(payload.module_errors.length, 3);
   } finally { globalThis.fetch = original; }
 });

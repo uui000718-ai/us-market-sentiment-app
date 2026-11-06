@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { finite, freshness, indicatorDate, indicatorStatus, names, number, recentEvents, time, validReport, weights } from "./lib/market";
 import type { Report } from "./lib/market";
 import { loadStaticReport } from "./lib/load-static";
+import MarketContextPanel from "./components/market-context";
 
 const CACHE_KEY = "market-pulse-report-v4";
 const CODES: Record<string, string> = { aaii: "AA", ndx_forward_pe: "PE", naaim: "NA", cftc_positioning: "CF", vix: "VX", qqq_rsi: "RS" };
@@ -112,6 +113,8 @@ export default function Home({ staticMode = false }: { staticMode?: boolean }) {
       </section>
 
       <section className="section-block" id="indicators"><div className="section-heading"><div><p className="section-kicker">DATA HEALTH</p><h2>指标与数据状态</h2></div><span className="count-chip">{report.indicators.length - unavailable}/{report.indicators.length} 已获取</span></div><div className="indicator-list">{report.indicators.map((item) => { const state = indicatorStatus(item, now); return <article className="indicator-card" key={item.name}><div className="indicator-code">{CODES[item.name] || "IN"}</div><div className="indicator-main"><div className="indicator-title-row"><h3>{item.label}</h3><span className={`status-dot ${state.tone}`}>{state.text}</span></div><p className="indicator-value">{item.value}</p><p className="indicator-detail">{cleanDetail(item.detail)}</p><span className="data-date">{indicatorDate(item) || "日期未知"} · {item.name === "cftc_positioning" ? "独立参考" : ["aaii", "naaim", "cftc_positioning"].includes(item.name) ? "周度更新" : item.name === "ndx_forward_pe" ? "以来源发布为准" : "日线行情"}</span></div></article>; })}</div></section>
+
+      <MarketContextPanel data={report.market_context} now={now} cached={cached}/>
 
       <section className="section-block dca-module" id="dca"><div className="module-head"><div><p className="section-kicker">NASDAQ-100 DCA</p><h2>纳指定投评分</h2></div><span className="source-chip">第三方参考</span></div>{dca ? <><div className="dca-summary"><div><span>综合评分</span><strong>{number(dca.top.totalScore, 0)}<small>/100</small></strong></div><div><span>建议定投倍数</span><strong className="amber">{number(dca.top.multiplier, 2, "×")}</strong></div></div><p className="dca-advice">{dca.top.advice || "来源暂未给出建议"}</p><p className="dca-meta">北京 {time(dca.fetched_at)} · 数据源自 <a href="https://www.btcdca.me/nasdaq/" target="_blank" rel="noreferrer">btcdca.me ↗</a></p>{dca.top.dataQuality?.fresh === false && <p className="dca-quality">来源提示部分数据存在估算或滞后：{dca.top.dataQuality.staleFields?.join("、") || "请核对来源"}</p>}<details className="dimension-details"><summary>查看12维度数据</summary><div className="dimension-grid">{DIMENSIONS.map(([key, label]) => { const x = dca.twelve.dimensions[key]; const w = dca.twelve.weights?.[key]; return <div className="dimension" key={key}><header><span>{label}</span><small>{finite(w) ? `${w}%` : "未分配"}</small></header><strong>{number(x?.score, 0)}<small> 分</small></strong><p>数值 {number(x?.value, 2)}</p><div className="dimension-bar"><i style={{width:`${finite(x?.score) ? Math.max(0, Math.min(100, x.score)) : 0}%`}}/></div><small>{x?.dataType === "pending" ? "来源尚未接入" : x?.dataType === "estimated" ? "估算值" : "来源数据"}</small></div>; })}</div></details></> : <p className="module-empty">第三方评分暂时无法读取，下次刷新会重试。</p>}</section>
 

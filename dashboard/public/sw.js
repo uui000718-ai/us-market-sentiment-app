@@ -1,4 +1,4 @@
-const CACHE = "market-pulse-v4";
+const CACHE = "market-pulse-v5";
 const APP_SHELL = ["./", "./manifest.webmanifest", "./favicon.svg"].map(path => new URL(path, self.location.href).href);
 
 self.addEventListener("install", (event) => {

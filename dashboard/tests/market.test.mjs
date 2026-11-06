@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { expectedSession, freshness, number, recentEvents, validReport } from "../app/lib/market.ts";
+import { expectedSession, freshness, number, recentEvents, validReport, validContext } from "../app/lib/market.ts";
 
 test("missing values are never converted to zero", () => {
   assert.equal(number(null), "—");
@@ -31,4 +31,11 @@ test("demo and malformed cache cannot pass the live report contract", () => {
   assert.equal(validReport({ mode: "preview", indicators: [], decision: {} }), false);
   assert.equal(validReport(null), false);
   assert.equal(validReport({ mode: "live", generated_at: "broken", indicators: [{}], decision: {} }), false);
+});
+
+test("context rejects corrupt series but preserves explicit missing values", () => {
+  const report = { schema_version: 1, fetched_at: "2026-11-06T00:00:00Z", items: [{ id: "real_yield", kind: "yield", value: null, series: [] }] };
+  assert.equal(validContext(report), true);
+  assert.equal(validContext({ ...report, items: [] }), false);
+  assert.equal(validContext({ ...report, items: [{ ...report.items[0], series: [{ date: "2026-11-05", value: "unknown" }] }] }), false);
 });

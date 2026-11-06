@@ -1,4 +1,4 @@
-import { validReport } from "../../lib/market";
+import { validReport, validContext } from "../../lib/market";
 
 const BASE = "https://uui000718-ai.github.io/us-market-sentiment-app/data/";
 export const dynamic = "force-dynamic";
@@ -11,9 +11,10 @@ async function read(url: string) {
   return response.json();
 }
 export async function GET() {
-  const [main, dca, premiums] = await Promise.allSettled([
+  const [main, dca, premiums, context] = await Promise.allSettled([
     read(process.env.SENTIMENT_DATA_URL || `${BASE}latest.json`),
     read(`${BASE}nasdaq-dca.json`), read(`${BASE}etf-premiums.json`),
+    read(`${BASE}market-context.json`),
   ]);
   if (main.status === "rejected" || !validReport(main.value)) {
     return Response.json({ error: "实时数据暂时无法读取，请稍后重试。", read_at: new Date().toISOString() }, { status: 503, headers });
@@ -22,6 +23,7 @@ export async function GET() {
     ...main.value, delivery_mode: "live", read_at: new Date().toISOString(),
     dca: dca.status === "fulfilled" && dca.value?.top && dca.value?.twelve ? dca.value : null,
     premiums: premiums.status === "fulfilled" && Array.isArray(premiums.value?.funds) ? premiums.value : null,
-    module_errors: [dca.status === "rejected" ? "第三方定投评分读取失败" : "", premiums.status === "rejected" ? "ETF溢价数据读取失败" : ""].filter(Boolean),
+    market_context: context.status === "fulfilled" && validContext(context.value) ? context.value : null,
+    module_errors: [dca.status === "rejected" ? "第三方定投评分读取失败" : "", premiums.status === "rejected" ? "ETF溢价数据读取失败" : "", context.status === "rejected" || !validContext(context.value) ? "市场环境数据暂不可用" : ""].filter(Boolean),
   }, { headers });
 }

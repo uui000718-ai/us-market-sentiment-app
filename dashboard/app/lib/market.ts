@@ -8,7 +8,24 @@ export type Report = {
   ndx_52_week?: { latest: number; high: number; drawdown_pct: number; is_new_high: boolean; date: string } | null;
   buy_signal_history?: BuyEvent[]; reminders?: string[]; errors?: string[];
   dca?: Dca | null; premiums?: Premiums | null; module_errors?: string[];
+  market_context?: MarketContext | null;
 };
+export type ContextPoint = { date: string; value: number };
+export type ContextMetric = {
+  id: string; title: string; kind: "relative" | "yield" | "stress"; symbol: string;
+  value: number | null; as_of: string | null; retrieved_at?: string; retained?: boolean; error?: string;
+  unit?: string; changes?: Record<string, number>; change?: number; comparison_date?: string;
+  percentile?: number; sample_count?: number; window_from?: string; window_to?: string; series: ContextPoint[];
+};
+export type MarketContext = { schema_version: number; fetched_at: string; items: ContextMetric[] };
+export function validContext(value: unknown): value is MarketContext {
+  if (!value || typeof value !== "object") return false;
+  const data = value as MarketContext;
+  return data.schema_version === 1 && typeof data.fetched_at === "string" && Array.isArray(data.items) && data.items.length > 0
+    && data.items.every((x) => x && typeof x.id === "string" && ["relative", "yield", "stress"].includes(x.kind)
+      && (x.value === null || finite(x.value)) && Array.isArray(x.series)
+      && x.series.every((p) => p && typeof p.date === "string" && finite(p.value)));
+}
 export type Dimension = { score: number | null; value: number | null; dataType?: string; note?: string };
 export type Dca = {
   fetched_at: string;
