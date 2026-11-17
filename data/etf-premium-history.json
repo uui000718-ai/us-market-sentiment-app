@@ -87,6 +87,18 @@
         "source": "tencent-quote",
         "basis": "iopv",
         "session": "close"
+      },
+      {
+        "date": "2026-11-17",
+        "close": 2.047,
+        "iopv": 1.7085,
+        "premium": 19.8127,
+        "vendor_premium": 19.81,
+        "quote_at": "2026-11-17T16:03:39+08:00",
+        "retrieved_at": "2026-11-17T08:03:47+00:00",
+        "source": "tencent-quote",
+        "basis": "iopv",
+        "session": "close"
       }
     ],
     "159696": [
@@ -170,6 +182,18 @@
         "vendor_premium": 16.52,
         "quote_at": "2026-11-16T16:14:45+08:00",
         "retrieved_at": "2026-11-16T18:55:37+00:00",
+        "source": "tencent-quote",
+        "basis": "iopv",
+        "session": "close"
+      },
+      {
+        "date": "2026-11-17",
+        "close": 2.007,
+        "iopv": 1.6939,
+        "premium": 18.484,
+        "vendor_premium": 18.48,
+        "quote_at": "2026-11-17T16:03:45+08:00",
+        "retrieved_at": "2026-11-17T08:03:47+00:00",
         "source": "tencent-quote",
         "basis": "iopv",
         "session": "close"
@@ -259,6 +283,18 @@
         "source": "tencent-quote",
         "basis": "iopv",
         "session": "close"
+      },
+      {
+        "date": "2026-11-17",
+        "close": 2.006,
+        "iopv": 1.7318,
+        "premium": 15.8332,
+        "vendor_premium": 15.83,
+        "quote_at": "2026-11-17T16:03:30+08:00",
+        "retrieved_at": "2026-11-17T08:03:47+00:00",
+        "source": "tencent-quote",
+        "basis": "iopv",
+        "session": "close"
       }
     ],
     "159632": [
@@ -342,6 +378,18 @@
         "vendor_premium": 12.86,
         "quote_at": "2026-11-16T16:15:00+08:00",
         "retrieved_at": "2026-11-16T18:55:37+00:00",
+        "source": "tencent-quote",
+        "basis": "iopv",
+        "session": "close"
+      },
+      {
+        "date": "2026-11-17",
+        "close": 2.366,
+        "iopv": 2.066,
+        "premium": 14.5208,
+        "vendor_premium": 14.52,
+        "quote_at": "2026-11-17T16:03:45+08:00",
+        "retrieved_at": "2026-11-17T08:03:47+00:00",
         "source": "tencent-quote",
         "basis": "iopv",
         "session": "close"
@@ -431,6 +479,18 @@
         "source": "tencent-quote",
         "basis": "iopv",
         "session": "close"
+      },
+      {
+        "date": "2026-11-17",
+        "close": 2.294,
+        "iopv": 1.9663,
+        "premium": 16.6658,
+        "vendor_premium": 16.67,
+        "quote_at": "2026-11-17T16:03:33+08:00",
+        "retrieved_at": "2026-11-17T08:03:47+00:00",
+        "source": "tencent-quote",
+        "basis": "iopv",
+        "session": "close"
       }
     ],
     "159509": [
@@ -514,6 +574,18 @@
         "vendor_premium": 39.21,
         "quote_at": "2026-11-16T16:14:45+08:00",
         "retrieved_at": "2026-11-16T18:55:37+00:00",
+        "source": "tencent-quote",
+        "basis": "iopv",
+        "session": "close"
+      },
+      {
+        "date": "2026-11-17",
+        "close": 2.812,
+        "iopv": 2.0131,
+        "premium": 39.6851,
+        "vendor_premium": 39.69,
+        "quote_at": "2026-11-17T16:03:45+08:00",
+        "retrieved_at": "2026-11-17T08:03:47+00:00",
         "source": "tencent-quote",
         "basis": "iopv",
         "session": "close"
@@ -603,6 +675,18 @@
         "source": "tencent-quote",
         "basis": "iopv",
         "session": "close"
+      },
+      {
+        "date": "2026-11-17",
+        "close": 2.166,
+        "iopv": 1.818,
+        "premium": 19.1419,
+        "vendor_premium": 19.14,
+        "quote_at": "2026-11-17T16:03:42+08:00",
+        "retrieved_at": "2026-11-17T08:03:47+00:00",
+        "source": "tencent-quote",
+        "basis": "iopv",
+        "session": "close"
       }
     ],
     "159941": [
@@ -686,6 +770,18 @@
         "vendor_premium": 15.42,
         "quote_at": "2026-11-16T16:14:45+08:00",
         "retrieved_at": "2026-11-16T18:55:37+00:00",
+        "source": "tencent-quote",
+        "basis": "iopv",
+        "session": "close"
+      },
+      {
+        "date": "2026-11-17",
+        "close": 1.594,
+        "iopv": 1.36,
+        "premium": 17.2059,
+        "vendor_premium": 17.21,
+        "quote_at": "2026-11-17T16:03:45+08:00",
+        "retrieved_at": "2026-11-17T08:03:47+00:00",
         "source": "tencent-quote",
         "basis": "iopv",
         "session": "close"
@@ -775,6 +871,18 @@
         "source": "tencent-quote",
         "basis": "iopv",
         "session": "close"
+      },
+      {
+        "date": "2026-11-17",
+        "close": 2.606,
+        "iopv": 2.2563,
+        "premium": 15.4988,
+        "vendor_premium": 15.5,
+        "quote_at": "2026-11-17T16:03:45+08:00",
+        "retrieved_at": "2026-11-17T08:03:47+00:00",
+        "source": "tencent-quote",
+        "basis": "iopv",
+        "session": "close"
       }
     ],
     "159660": [
@@ -858,6 +966,18 @@
         "vendor_premium": 13.52,
         "quote_at": "2026-11-16T16:14:30+08:00",
         "retrieved_at": "2026-11-16T18:55:37+00:00",
+        "source": "tencent-quote",
+        "basis": "iopv",
+        "session": "close"
+      },
+      {
+        "date": "2026-11-17",
+        "close": 2.288,
+        "iopv": 1.9871,
+        "premium": 15.1427,
+        "vendor_premium": 15.14,
+        "quote_at": "2026-11-17T16:03:30+08:00",
+        "retrieved_at": "2026-11-17T08:03:47+00:00",
         "source": "tencent-quote",
         "basis": "iopv",
         "session": "close"
@@ -947,6 +1067,18 @@
         "source": "tencent-quote",
         "basis": "iopv",
         "session": "close"
+      },
+      {
+        "date": "2026-11-17",
+        "close": 2.351,
+        "iopv": 2.0411,
+        "premium": 15.183,
+        "vendor_premium": 15.18,
+        "quote_at": "2026-11-17T16:03:40+08:00",
+        "retrieved_at": "2026-11-17T08:03:47+00:00",
+        "source": "tencent-quote",
+        "basis": "iopv",
+        "session": "close"
       }
     ],
     "159513": [
@@ -1033,6 +1165,18 @@
         "source": "tencent-quote",
         "basis": "iopv",
         "session": "close"
+      },
+      {
+        "date": "2026-11-17",
+        "close": 1.725,
+        "iopv": 1.5139,
+        "premium": 13.9441,
+        "vendor_premium": 13.94,
+        "quote_at": "2026-11-17T16:03:45+08:00",
+        "retrieved_at": "2026-11-17T08:03:47+00:00",
+        "source": "tencent-quote",
+        "basis": "iopv",
+        "session": "close"
       }
     ],
     "513110": [
@@ -1116,6 +1260,18 @@
         "vendor_premium": 12.18,
         "quote_at": "2026-11-16T16:14:55+08:00",
         "retrieved_at": "2026-11-16T18:55:37+00:00",
+        "source": "tencent-quote",
+        "basis": "iopv",
+        "session": "close"
+      },
+      {
+        "date": "2026-11-17",
+        "close": 2.375,
+        "iopv": 2.0883,
+        "premium": 13.7289,
+        "vendor_premium": 13.73,
+        "quote_at": "2026-11-17T16:03:47+08:00",
+        "retrieved_at": "2026-11-17T08:03:47+00:00",
         "source": "tencent-quote",
         "basis": "iopv",
         "session": "close"
