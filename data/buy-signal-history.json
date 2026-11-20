@@ -474,11 +474,12 @@
       "market_date": "2026-11-19",
       "recorded_at": "2026-11-19T17:38:57+00:00",
       "recommendation": "建议买入",
-      "decision_score": 25.0,
+      "decision_score": 40.6,
       "is_buy": true,
       "buy_reasons": [
         "AAII看跌 42.2% 位于42%–45%（接近45%）",
-        "纳指100预估市盈率 20.94x < 23x（强买入）"
+        "纳指100预估市盈率 20.43x < 23x（强买入）",
+        "QQQ RSI6 27.13 < 30"
       ]
     }
   ]
