@@ -1,0 +1,675 @@
+{
+  "schema_version": 2,
+  "basis": "iopv",
+  "history_mode": "daily-close-iopv",
+  "fetched_at": "2026-11-21T07:21:34+00:00",
+  "window": {
+    "trading_days": 120,
+    "from": "2026-11-06",
+    "to": "2026-11-20"
+  },
+  "min_percentile_samples": 20,
+  "methodology": {
+    "current": "同一行情快照的场内价格 / IOPV - 1；与行情溢价字段交叉校验，不使用单位净值替代",
+    "history": "每日收盘后采集IOPV参考溢价；仅统计已验证的同口径记录，最多保留120个交易日",
+    "percentile": "同口径收盘样本中溢价率小于等于当前值的比例；少于20个有效样本时暂不展示"
+  },
+  "source": {
+    "name": "腾讯财经公开ETF行情（非交易所授权实时行情）",
+    "homepage": "https://gu.qq.com/",
+    "api": "https://qt.gtimg.cn/q="
+  },
+  "migration": "旧记录混有单位净值口径，未导入IOPV统计；不伪造历史IOPV数据",
+  "funds": [
+    {
+      "code": "159501",
+      "name": "嘉实纳斯达克100ETF",
+      "current": {
+        "price": 1.966,
+        "iopv": 1.6655,
+        "premium": 18.0426,
+        "vendor_premium": 18.04,
+        "quote_date": "2026-11-20",
+        "quote_at": "2026-11-20T16:15:00+08:00",
+        "retrieved_at": "2026-11-21T07:21:34+00:00",
+        "source": "tencent-quote",
+        "basis": "iopv",
+        "retained": false,
+        "status": "close"
+      },
+      "sample_count": 11,
+      "percentile": null,
+      "distribution": [
+        {
+          "key": "discount",
+          "label": "< 18%",
+          "count": 1
+        },
+        {
+          "key": "low",
+          "label": "18%–20%",
+          "count": 4
+        },
+        {
+          "key": "medium",
+          "label": "20%–22%",
+          "count": 5
+        },
+        {
+          "key": "high",
+          "label": "22%–24%",
+          "count": 1
+        },
+        {
+          "key": "extreme",
+          "label": "≥ 24%",
+          "count": 0
+        }
+      ],
+      "history_from": "2026-11-06",
+      "history_to": "2026-11-20",
+      "history_status": "accumulating",
+      "error": ""
+    },
+    {
+      "code": "159696",
+      "name": "易方达纳斯达克100ETF",
+      "current": {
+        "price": 1.935,
+        "iopv": 1.6511,
+        "premium": 17.1946,
+        "vendor_premium": 17.19,
+        "quote_date": "2026-11-20",
+        "quote_at": "2026-11-20T16:14:45+08:00",
+        "retrieved_at": "2026-11-21T07:21:34+00:00",
+        "source": "tencent-quote",
+        "basis": "iopv",
+        "retained": false,
+        "status": "close"
+      },
+      "sample_count": 11,
+      "percentile": null,
+      "distribution": [
+        {
+          "key": "discount",
+          "label": "< 17%",
+          "count": 2
+        },
+        {
+          "key": "low",
+          "label": "17%–18%",
+          "count": 4
+        },
+        {
+          "key": "medium",
+          "label": "18%–19%",
+          "count": 1
+        },
+        {
+          "key": "high",
+          "label": "19%–20%",
+          "count": 3
+        },
+        {
+          "key": "extreme",
+          "label": "≥ 20%",
+          "count": 1
+        }
+      ],
+      "history_from": "2026-11-06",
+      "history_to": "2026-11-20",
+      "history_status": "accumulating",
+      "error": ""
+    },
+    {
+      "code": "513870",
+      "name": "富国纳斯达克100ETF",
+      "current": {
+        "price": 1.939,
+        "iopv": 1.6883,
+        "premium": 14.8493,
+        "vendor_premium": 14.85,
+        "quote_date": "2026-11-20",
+        "quote_at": "2026-11-20T16:15:00+08:00",
+        "retrieved_at": "2026-11-21T07:21:34+00:00",
+        "source": "tencent-quote",
+        "basis": "iopv",
+        "retained": false,
+        "status": "close"
+      },
+      "sample_count": 11,
+      "percentile": null,
+      "distribution": [
+        {
+          "key": "discount",
+          "label": "< 14%",
+          "count": 1
+        },
+        {
+          "key": "low",
+          "label": "14%–15%",
+          "count": 3
+        },
+        {
+          "key": "medium",
+          "label": "15%–16%",
+          "count": 3
+        },
+        {
+          "key": "high",
+          "label": "16%–17%",
+          "count": 0
+        },
+        {
+          "key": "extreme",
+          "label": "≥ 17%",
+          "count": 4
+        }
+      ],
+      "history_from": "2026-11-06",
+      "history_to": "2026-11-20",
+      "history_status": "accumulating",
+      "error": ""
+    },
+    {
+      "code": "159632",
+      "name": "华安纳斯达克100ETF",
+      "current": {
+        "price": 2.282,
+        "iopv": 2.0138,
+        "premium": 13.3181,
+        "vendor_premium": 13.32,
+        "quote_date": "2026-11-20",
+        "quote_at": "2026-11-20T16:14:45+08:00",
+        "retrieved_at": "2026-11-21T07:21:34+00:00",
+        "source": "tencent-quote",
+        "basis": "iopv",
+        "retained": false,
+        "status": "close"
+      },
+      "sample_count": 11,
+      "percentile": null,
+      "distribution": [
+        {
+          "key": "discount",
+          "label": "< 14%",
+          "count": 5
+        },
+        {
+          "key": "low",
+          "label": "14%–16%",
+          "count": 3
+        },
+        {
+          "key": "medium",
+          "label": "16%–18%",
+          "count": 3
+        },
+        {
+          "key": "high",
+          "label": "18%–20%",
+          "count": 0
+        },
+        {
+          "key": "extreme",
+          "label": "≥ 20%",
+          "count": 0
+        }
+      ],
+      "history_from": "2026-11-06",
+      "history_to": "2026-11-20",
+      "history_status": "accumulating",
+      "error": ""
+    },
+    {
+      "code": "159659",
+      "name": "招商纳斯达克100ETF",
+      "current": {
+        "price": 2.219,
+        "iopv": 1.917,
+        "premium": 15.7538,
+        "vendor_premium": 15.75,
+        "quote_date": "2026-11-20",
+        "quote_at": "2026-11-20T16:14:15+08:00",
+        "retrieved_at": "2026-11-21T07:21:34+00:00",
+        "source": "tencent-quote",
+        "basis": "iopv",
+        "retained": false,
+        "status": "close"
+      },
+      "sample_count": 11,
+      "percentile": null,
+      "distribution": [
+        {
+          "key": "discount",
+          "label": "< 15%",
+          "count": 1
+        },
+        {
+          "key": "low",
+          "label": "15%–16%",
+          "count": 3
+        },
+        {
+          "key": "medium",
+          "label": "16%–17%",
+          "count": 3
+        },
+        {
+          "key": "high",
+          "label": "17%–18%",
+          "count": 1
+        },
+        {
+          "key": "extreme",
+          "label": "≥ 18%",
+          "count": 3
+        }
+      ],
+      "history_from": "2026-11-06",
+      "history_to": "2026-11-20",
+      "history_status": "accumulating",
+      "error": ""
+    },
+    {
+      "code": "159509",
+      "name": "景顺长城纳斯达克科技ETF",
+      "current": {
+        "price": 2.682,
+        "iopv": 1.9599,
+        "premium": 36.8437,
+        "vendor_premium": 36.84,
+        "quote_date": "2026-11-20",
+        "quote_at": "2026-11-20T16:14:51+08:00",
+        "retrieved_at": "2026-11-21T07:21:34+00:00",
+        "source": "tencent-quote",
+        "basis": "iopv",
+        "retained": false,
+        "status": "close"
+      },
+      "sample_count": 11,
+      "percentile": null,
+      "distribution": [
+        {
+          "key": "discount",
+          "label": "< 38%",
+          "count": 1
+        },
+        {
+          "key": "low",
+          "label": "38%–40%",
+          "count": 6
+        },
+        {
+          "key": "medium",
+          "label": "40%–42%",
+          "count": 1
+        },
+        {
+          "key": "high",
+          "label": "42%–44%",
+          "count": 3
+        },
+        {
+          "key": "extreme",
+          "label": "≥ 44%",
+          "count": 0
+        }
+      ],
+      "history_from": "2026-11-06",
+      "history_to": "2026-11-20",
+      "history_status": "accumulating",
+      "error": ""
+    },
+    {
+      "code": "513100",
+      "name": "国泰纳斯达克100ETF",
+      "current": {
+        "price": 2.074,
+        "iopv": 1.7728,
+        "premium": 16.9901,
+        "vendor_premium": 16.99,
+        "quote_date": "2026-11-20",
+        "quote_at": "2026-11-20T16:14:54+08:00",
+        "retrieved_at": "2026-11-21T07:21:34+00:00",
+        "source": "tencent-quote",
+        "basis": "iopv",
+        "retained": false,
+        "status": "close"
+      },
+      "sample_count": 11,
+      "percentile": null,
+      "distribution": [
+        {
+          "key": "discount",
+          "label": "< 18%",
+          "count": 4
+        },
+        {
+          "key": "low",
+          "label": "18%–20%",
+          "count": 4
+        },
+        {
+          "key": "medium",
+          "label": "20%–22%",
+          "count": 3
+        },
+        {
+          "key": "high",
+          "label": "22%–24%",
+          "count": 0
+        },
+        {
+          "key": "extreme",
+          "label": "≥ 24%",
+          "count": 0
+        }
+      ],
+      "history_from": "2026-11-06",
+      "history_to": "2026-11-20",
+      "history_status": "accumulating",
+      "error": ""
+    },
+    {
+      "code": "159941",
+      "name": "广发纳斯达克100ETF",
+      "current": {
+        "price": 1.526,
+        "iopv": 1.3254,
+        "premium": 15.1351,
+        "vendor_premium": 15.14,
+        "quote_date": "2026-11-20",
+        "quote_at": "2026-11-20T16:14:45+08:00",
+        "retrieved_at": "2026-11-21T07:21:34+00:00",
+        "source": "tencent-quote",
+        "basis": "iopv",
+        "retained": false,
+        "status": "close"
+      },
+      "sample_count": 11,
+      "percentile": null,
+      "distribution": [
+        {
+          "key": "discount",
+          "label": "< 16%",
+          "count": 3
+        },
+        {
+          "key": "low",
+          "label": "16%–18%",
+          "count": 4
+        },
+        {
+          "key": "medium",
+          "label": "18%–20%",
+          "count": 4
+        },
+        {
+          "key": "high",
+          "label": "20%–22%",
+          "count": 0
+        },
+        {
+          "key": "extreme",
+          "label": "≥ 22%",
+          "count": 0
+        }
+      ],
+      "history_from": "2026-11-06",
+      "history_to": "2026-11-20",
+      "history_status": "accumulating",
+      "error": ""
+    },
+    {
+      "code": "513300",
+      "name": "华夏纳斯达克100ETF",
+      "current": {
+        "price": 2.523,
+        "iopv": 2.1982,
+        "premium": 14.7757,
+        "vendor_premium": 14.78,
+        "quote_date": "2026-11-20",
+        "quote_at": "2026-11-20T16:14:49+08:00",
+        "retrieved_at": "2026-11-21T07:21:34+00:00",
+        "source": "tencent-quote",
+        "basis": "iopv",
+        "retained": false,
+        "status": "close"
+      },
+      "sample_count": 11,
+      "percentile": null,
+      "distribution": [
+        {
+          "key": "discount",
+          "label": "< 15%",
+          "count": 3
+        },
+        {
+          "key": "low",
+          "label": "15%–16%",
+          "count": 4
+        },
+        {
+          "key": "medium",
+          "label": "16%–17%",
+          "count": 1
+        },
+        {
+          "key": "high",
+          "label": "17%–18%",
+          "count": 3
+        },
+        {
+          "key": "extreme",
+          "label": "≥ 18%",
+          "count": 0
+        }
+      ],
+      "history_from": "2026-11-06",
+      "history_to": "2026-11-20",
+      "history_status": "accumulating",
+      "error": ""
+    },
+    {
+      "code": "159660",
+      "name": "汇添富纳斯达克100ETF",
+      "current": {
+        "price": 2.207,
+        "iopv": 1.9371,
+        "premium": 13.9332,
+        "vendor_premium": 13.93,
+        "quote_date": "2026-11-20",
+        "quote_at": "2026-11-20T16:14:51+08:00",
+        "retrieved_at": "2026-11-21T07:21:34+00:00",
+        "source": "tencent-quote",
+        "basis": "iopv",
+        "retained": false,
+        "status": "close"
+      },
+      "sample_count": 11,
+      "percentile": null,
+      "distribution": [
+        {
+          "key": "discount",
+          "label": "< 14%",
+          "count": 3
+        },
+        {
+          "key": "low",
+          "label": "14%–15%",
+          "count": 3
+        },
+        {
+          "key": "medium",
+          "label": "15%–16%",
+          "count": 1
+        },
+        {
+          "key": "high",
+          "label": "16%–17%",
+          "count": 2
+        },
+        {
+          "key": "extreme",
+          "label": "≥ 17%",
+          "count": 2
+        }
+      ],
+      "history_from": "2026-11-06",
+      "history_to": "2026-11-20",
+      "history_status": "accumulating",
+      "error": ""
+    },
+    {
+      "code": "513390",
+      "name": "博时纳斯达克100ETF",
+      "current": {
+        "price": 2.273,
+        "iopv": 1.9899,
+        "premium": 14.2268,
+        "vendor_premium": 14.23,
+        "quote_date": "2026-11-20",
+        "quote_at": "2026-11-20T16:14:50+08:00",
+        "retrieved_at": "2026-11-21T07:21:34+00:00",
+        "source": "tencent-quote",
+        "basis": "iopv",
+        "retained": false,
+        "status": "close"
+      },
+      "sample_count": 11,
+      "percentile": null,
+      "distribution": [
+        {
+          "key": "discount",
+          "label": "< 14%",
+          "count": 2
+        },
+        {
+          "key": "low",
+          "label": "14%–15%",
+          "count": 4
+        },
+        {
+          "key": "medium",
+          "label": "15%–16%",
+          "count": 1
+        },
+        {
+          "key": "high",
+          "label": "16%–17%",
+          "count": 2
+        },
+        {
+          "key": "extreme",
+          "label": "≥ 17%",
+          "count": 2
+        }
+      ],
+      "history_from": "2026-11-06",
+      "history_to": "2026-11-20",
+      "history_status": "accumulating",
+      "error": ""
+    },
+    {
+      "code": "159513",
+      "name": "大成纳斯达克100ETF",
+      "current": {
+        "price": 1.655,
+        "iopv": 1.4751,
+        "premium": 12.1958,
+        "vendor_premium": 12.2,
+        "quote_date": "2026-11-20",
+        "quote_at": "2026-11-20T16:14:45+08:00",
+        "retrieved_at": "2026-11-21T07:21:34+00:00",
+        "source": "tencent-quote",
+        "basis": "iopv",
+        "retained": false,
+        "status": "close"
+      },
+      "sample_count": 11,
+      "percentile": null,
+      "distribution": [
+        {
+          "key": "discount",
+          "label": "< 14%",
+          "count": 7
+        },
+        {
+          "key": "low",
+          "label": "14%–16%",
+          "count": 3
+        },
+        {
+          "key": "medium",
+          "label": "16%–18%",
+          "count": 1
+        },
+        {
+          "key": "high",
+          "label": "18%–20%",
+          "count": 0
+        },
+        {
+          "key": "extreme",
+          "label": "≥ 20%",
+          "count": 0
+        }
+      ],
+      "history_from": "2026-11-06",
+      "history_to": "2026-11-20",
+      "history_status": "accumulating",
+      "error": ""
+    },
+    {
+      "code": "513110",
+      "name": "华泰柏瑞纳斯达克100ETF",
+      "current": {
+        "price": 2.285,
+        "iopv": 2.0362,
+        "premium": 12.2188,
+        "vendor_premium": 12.22,
+        "quote_date": "2026-11-20",
+        "quote_at": "2026-11-20T16:14:57+08:00",
+        "retrieved_at": "2026-11-21T07:21:34+00:00",
+        "source": "tencent-quote",
+        "basis": "iopv",
+        "retained": false,
+        "status": "close"
+      },
+      "sample_count": 11,
+      "percentile": null,
+      "distribution": [
+        {
+          "key": "discount",
+          "label": "< 14%",
+          "count": 7
+        },
+        {
+          "key": "low",
+          "label": "14%–16%",
+          "count": 3
+        },
+        {
+          "key": "medium",
+          "label": "16%–18%",
+          "count": 1
+        },
+        {
+          "key": "high",
+          "label": "18%–20%",
+          "count": 0
+        },
+        {
+          "key": "extreme",
+          "label": "≥ 20%",
+          "count": 0
+        }
+      ],
+      "history_from": "2026-11-06",
+      "history_to": "2026-11-20",
+      "history_status": "accumulating",
+      "error": ""
+    }
+  ]
+}
