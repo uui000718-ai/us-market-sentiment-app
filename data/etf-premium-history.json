@@ -155,7 +155,7 @@
         "premium": 19.85,
         "vendor_premium": 19.85,
         "quote_at": "2026-11-24T16:14:30+08:00",
-        "retrieved_at": "2026-11-24T10:02:01+00:00",
+        "retrieved_at": "2026-11-24T19:42:20+00:00",
         "source": "tencent-quote",
         "basis": "iopv",
         "session": "close"
@@ -313,7 +313,7 @@
         "premium": 19.3779,
         "vendor_premium": 19.38,
         "quote_at": "2026-11-24T16:14:42+08:00",
-        "retrieved_at": "2026-11-24T10:02:01+00:00",
+        "retrieved_at": "2026-11-24T19:42:20+00:00",
         "source": "tencent-quote",
         "basis": "iopv",
         "session": "close"
@@ -471,7 +471,7 @@
         "premium": 16.3214,
         "vendor_premium": 16.32,
         "quote_at": "2026-11-24T16:14:33+08:00",
-        "retrieved_at": "2026-11-24T10:02:01+00:00",
+        "retrieved_at": "2026-11-24T19:42:20+00:00",
         "source": "tencent-quote",
         "basis": "iopv",
         "session": "close"
@@ -629,7 +629,7 @@
         "premium": 14.7638,
         "vendor_premium": 14.76,
         "quote_at": "2026-11-24T16:14:39+08:00",
-        "retrieved_at": "2026-11-24T10:02:01+00:00",
+        "retrieved_at": "2026-11-24T19:42:20+00:00",
         "source": "tencent-quote",
         "basis": "iopv",
         "session": "close"
@@ -787,7 +787,7 @@
         "premium": 16.8683,
         "vendor_premium": 16.87,
         "quote_at": "2026-11-24T16:14:30+08:00",
-        "retrieved_at": "2026-11-24T10:02:01+00:00",
+        "retrieved_at": "2026-11-24T19:42:20+00:00",
         "source": "tencent-quote",
         "basis": "iopv",
         "session": "close"
@@ -945,7 +945,7 @@
         "premium": 40.6873,
         "vendor_premium": 40.69,
         "quote_at": "2026-11-24T16:14:03+08:00",
-        "retrieved_at": "2026-11-24T10:02:01+00:00",
+        "retrieved_at": "2026-11-24T19:42:20+00:00",
         "source": "tencent-quote",
         "basis": "iopv",
         "session": "close"
@@ -1103,7 +1103,7 @@
         "premium": 19.037,
         "vendor_premium": 19.04,
         "quote_at": "2026-11-24T16:14:58+08:00",
-        "retrieved_at": "2026-11-24T10:02:01+00:00",
+        "retrieved_at": "2026-11-24T19:42:20+00:00",
         "source": "tencent-quote",
         "basis": "iopv",
         "session": "close"
@@ -1261,7 +1261,7 @@
         "premium": 16.6966,
         "vendor_premium": 16.7,
         "quote_at": "2026-11-24T16:14:18+08:00",
-        "retrieved_at": "2026-11-24T10:02:01+00:00",
+        "retrieved_at": "2026-11-24T19:42:20+00:00",
         "source": "tencent-quote",
         "basis": "iopv",
         "session": "close"
@@ -1419,7 +1419,7 @@
         "premium": 16.3367,
         "vendor_premium": 16.34,
         "quote_at": "2026-11-24T16:14:53+08:00",
-        "retrieved_at": "2026-11-24T10:02:01+00:00",
+        "retrieved_at": "2026-11-24T19:42:20+00:00",
         "source": "tencent-quote",
         "basis": "iopv",
         "session": "close"
@@ -1577,7 +1577,7 @@
         "premium": 15.4043,
         "vendor_premium": 15.4,
         "quote_at": "2026-11-24T16:14:45+08:00",
-        "retrieved_at": "2026-11-24T10:02:01+00:00",
+        "retrieved_at": "2026-11-24T19:42:20+00:00",
         "source": "tencent-quote",
         "basis": "iopv",
         "session": "close"
@@ -1735,7 +1735,7 @@
         "premium": 15.6222,
         "vendor_premium": 15.62,
         "quote_at": "2026-11-24T16:14:53+08:00",
-        "retrieved_at": "2026-11-24T10:02:01+00:00",
+        "retrieved_at": "2026-11-24T19:42:20+00:00",
         "source": "tencent-quote",
         "basis": "iopv",
         "session": "close"
@@ -1893,7 +1893,7 @@
         "premium": 13.6699,
         "vendor_premium": 13.67,
         "quote_at": "2026-11-24T16:14:21+08:00",
-        "retrieved_at": "2026-11-24T10:02:01+00:00",
+        "retrieved_at": "2026-11-24T19:42:20+00:00",
         "source": "tencent-quote",
         "basis": "iopv",
         "session": "close"
@@ -2051,7 +2051,7 @@
         "premium": 13.5988,
         "vendor_premium": 13.6,
         "quote_at": "2026-11-24T16:14:44+08:00",
-        "retrieved_at": "2026-11-24T10:02:01+00:00",
+        "retrieved_at": "2026-11-24T19:42:20+00:00",
         "source": "tencent-quote",
         "basis": "iopv",
         "session": "close"
